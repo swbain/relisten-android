@@ -1,4 +1,4 @@
-package com.stephenbain.relisten.di
+package com.stephenbain.relisten.ui.core
 
 import androidx.lifecycle.ViewModel
 import dagger.MapKey
