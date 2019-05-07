@@ -20,15 +20,15 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
+
+    androidExtensions {
+        experimental = true
+    }
 }
 
 dependencies {
-    def dagger_version = "2.20"
-    def lifecycle_version = "2.0.0"
-    def nav_version = "2.0.0"
-
-    implementation fileTree(dir: 'libs', include: ['*.jar'])
-    implementation"org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
     implementation 'androidx.appcompat:appcompat:1.0.2'
     implementation 'androidx.core:core-ktx:1.0.1'
     testImplementation 'junit:junit:4.12'
@@ -41,12 +41,13 @@ dependencies {
     kapt "androidx.lifecycle:lifecycle-compiler:$lifecycle_version"
     implementation "androidx.lifecycle:lifecycle-reactivestreams-ktx:$lifecycle_version"
     testImplementation "androidx.arch.core:core-testing:$lifecycle_version"
+    implementation "androidx.lifecycle:lifecycle-reactivestreams-ktx:$lifecycle_version"
     // nav
     implementation "androidx.navigation:navigation-fragment-ktx:$nav_version"
     implementation "androidx.navigation:navigation-ui-ktx:$nav_version"
     // constraintlayout
-    implementation "androidx.constraintlayout:constraintlayout:1.1.3"
-    implementation "androidx.constraintlayout:constraintlayout-solver:1.1.3"
+    implementation "androidx.constraintlayout:constraintlayout:$constraint_version"
+    implementation "androidx.constraintlayout:constraintlayout-solver:$constraint_version"
     // recyclerview
     implementation 'androidx.recyclerview:recyclerview:1.0.0'
     // dagger
@@ -57,5 +58,9 @@ dependencies {
     kapt "com.google.dagger:dagger-android-processor:$dagger_version"
     // timber logging
     implementation 'com.jakewharton.timber:timber:4.7.1'
-
+    implementation project(':data')
+    // rxjava
+    implementation "io.reactivex.rxjava2:rxjava:$rxjava_version"
+    implementation "io.reactivex.rxjava2:rxkotlin:$rxkotlin_version"
+    implementation "io.reactivex.rxjava2:rxandroid:$rxandroid_version"
 }

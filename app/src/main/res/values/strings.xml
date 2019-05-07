@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">Relisten</string>
+    <string name="error_loading_featured">Error loading featured data</string>
 </resources>

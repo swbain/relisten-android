@@ -20,5 +20,4 @@ abstract class HomeModule {
         @ViewModelKey(HomeViewModel::class)
         abstract fun bindHomeViewModel(viewModel: HomeViewModel): ViewModel
     }
-
 }
