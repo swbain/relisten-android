@@ -8,7 +8,7 @@ import io.reactivex.rxkotlin.flatMapIterable
 import javax.inject.Inject
 
 
-class GetArtists @Inject internal constructor(private val relistenApi: RelistenApi) {
+class GetAllArtists @Inject internal constructor(private val relistenApi: RelistenApi) {
 
     operator fun invoke(): Single<List<Artist>> {
         return relistenApi.getArtists()

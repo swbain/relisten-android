@@ -1,7 +1,7 @@
 package com.stephenbain.relisten.ui.home
 
 import androidx.lifecycle.*
-import com.stephenbain.relisten.domain.GetArtists
+import com.stephenbain.relisten.domain.GetAllArtists
 import com.stephenbain.relisten.domain.model.Artist
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
@@ -9,9 +9,9 @@ import timber.log.Timber
 import javax.inject.Inject
 
 
-class HomeViewModel @Inject constructor(getArtists: GetArtists) : ViewModel() {
+class HomeViewModel @Inject constructor(getAllArtists: GetAllArtists) : ViewModel() {
 
-    val state: LiveData<HomeState> = getArtists().toFlowable()
+    val state: LiveData<HomeState> = getAllArtists().toFlowable()
         .subscribeOn(Schedulers.io())
         .observeOn(AndroidSchedulers.mainThread())
         .doOnError { Timber.e(it) }
