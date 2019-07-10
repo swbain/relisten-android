@@ -1,6 +1,5 @@
 package com.stephenbain.relisten
 
-import com.stephenbain.relisten.data.DataModule
 import com.stephenbain.relisten.ui.UiModule
 import dagger.Component
 import dagger.android.AndroidInjector
@@ -9,8 +8,10 @@ import javax.inject.Singleton
 
 
 @Singleton
-@Component(modules = [AndroidSupportInjectionModule::class, UiModule::class, DataModule::class])
+@Component(modules = [AndroidSupportInjectionModule::class, UiModule::class])
 interface AppComponent : AndroidInjector<RelistenApp> {
     @Component.Builder
-    abstract class Builder : AndroidInjector.Builder<RelistenApp>()
+    interface Builder {
+        fun build(): AppComponent
+    }
 }

@@ -1,8 +1,8 @@
-package com.stephenbain.relisten.data.domain
+package com.stephenbain.relisten.domain
 
-import com.stephenbain.relisten.data.api.RelistenApi
-import com.stephenbain.relisten.data.domain.model.Artist
-import com.stephenbain.relisten.data.domain.model.toArtist
+import com.stephenbain.relisten.api.RelistenApi
+import com.stephenbain.relisten.domain.model.Artist
+import com.stephenbain.relisten.domain.model.toArtist
 import io.reactivex.Single
 import io.reactivex.rxkotlin.flatMapIterable
 import javax.inject.Inject

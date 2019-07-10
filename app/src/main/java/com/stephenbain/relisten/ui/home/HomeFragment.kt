@@ -11,7 +11,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.stephenbain.relisten.R
-import com.stephenbain.relisten.data.domain.model.Artist
+import com.stephenbain.relisten.domain.model.Artist
 import com.stephenbain.relisten.ui.core.BaseFragment
 import kotlinx.android.extensions.LayoutContainer
 import kotlinx.android.synthetic.main.fragment_home.*

@@ -1,4 +1,4 @@
-package com.stephenbain.relisten.data.api
+package com.stephenbain.relisten.api
 
 import com.squareup.moshi.Moshi
 import dagger.Module
@@ -9,7 +9,7 @@ import retrofit2.converter.moshi.MoshiConverterFactory
 import javax.inject.Singleton
 
 @Module
-internal class ApiModule {
+class ApiModule {
 
     @Provides
     @Singleton

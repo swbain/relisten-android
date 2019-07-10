@@ -1,8 +1,8 @@
 package com.stephenbain.relisten.ui.home
 
 import androidx.lifecycle.*
-import com.stephenbain.relisten.data.domain.GetArtists
-import com.stephenbain.relisten.data.domain.model.Artist
+import com.stephenbain.relisten.domain.GetArtists
+import com.stephenbain.relisten.domain.model.Artist
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import timber.log.Timber
