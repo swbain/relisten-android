@@ -1,6 +1,7 @@
 package com.stephenbain.relisten.api
 
 import com.squareup.moshi.Moshi
+import com.stephenbain.relisten.api.model.ArtistJsonAdapter
 import dagger.Module
 import dagger.Provides
 import retrofit2.Retrofit
@@ -14,7 +15,7 @@ class ApiModule {
     @Provides
     @Singleton
     fun providesRelistenApi(): RelistenApi {
-        val moshi = Moshi.Builder().build()
+        val moshi = Moshi.Builder().add(ArtistJsonAdapter()).build()
 
         val retrofit = Retrofit.Builder().apply {
             baseUrl("https://api.relisten.net/api/v2/")
