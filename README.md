@@ -7,7 +7,8 @@ Technologies used:
 - Kotlin
 - RxJava/RxKotlin
 - Room
-- Lifecycle Components (ViewModel/LiveData)
+- Jetpack Lifecycle Components (ViewModel/LiveData)
+- Jetpack Navigation Component
 - Dagger 2
 - Moshi
 - Retrofit
