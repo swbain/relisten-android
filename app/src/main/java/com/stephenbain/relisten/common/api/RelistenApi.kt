@@ -1,6 +1,6 @@
-package com.stephenbain.relisten.api
+package com.stephenbain.relisten.common.api
 
-import com.stephenbain.relisten.api.model.ArtistResponse
+import com.stephenbain.relisten.common.api.model.ArtistResponse
 import io.reactivex.Single
 import retrofit2.http.GET
 

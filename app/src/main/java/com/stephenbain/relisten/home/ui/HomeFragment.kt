@@ -1,4 +1,4 @@
-package com.stephenbain.relisten.ui.home
+package com.stephenbain.relisten.home.ui
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -12,7 +12,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.stephenbain.relisten.R
-import com.stephenbain.relisten.ui.core.BaseFragment
+import com.stephenbain.relisten.common.ui.BaseFragment
 import kotlinx.android.extensions.LayoutContainer
 import kotlinx.android.synthetic.main.fragment_home.*
 import kotlinx.android.synthetic.main.item_home.*
@@ -62,7 +62,9 @@ class HomeFragment : BaseFragment() {
         adapter.submitList(items)
     }
 
-    private class HomeAdapter : ListAdapter<HomeItem, HomeItemViewHolder>(DIFF_CALLBACK) {
+    private class HomeAdapter : ListAdapter<HomeItem, HomeItemViewHolder>(
+        DIFF_CALLBACK
+    ) {
 
         override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): HomeItemViewHolder {
             val view = LayoutInflater.from(parent.context).inflate(R.layout.item_home, parent, false)

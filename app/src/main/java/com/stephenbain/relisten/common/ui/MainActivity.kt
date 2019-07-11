@@ -1,4 +1,4 @@
-package com.stephenbain.relisten.ui.core
+package com.stephenbain.relisten.common.ui
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity

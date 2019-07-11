@@ -1,14 +1,11 @@
-package com.stephenbain.relisten.ui.home
+package com.stephenbain.relisten.home.ui
 
 import androidx.lifecycle.*
-import com.stephenbain.relisten.domain.GetHomeSections
-import com.stephenbain.relisten.domain.model.HomeSection
-import com.stephenbain.relisten.repository.Artist
+import com.stephenbain.relisten.home.domain.GetHomeSections
+import com.stephenbain.relisten.home.domain.model.HomeSection
 import io.reactivex.BackpressureStrategy
 import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.rxkotlin.concatAll
-import io.reactivex.rxkotlin.toObservable
 import io.reactivex.schedulers.Schedulers
 import timber.log.Timber
 import javax.inject.Inject
@@ -20,7 +17,11 @@ class HomeViewModel @Inject constructor(private val getHomeSections: GetHomeSect
         .subscribeOn(Schedulers.io())
         .observeOn(AndroidSchedulers.mainThread())
         .doOnError { Timber.e(it) }
-        .map<HomeState> { HomeState.Success(it) }
+        .map<HomeState> {
+            HomeState.Success(
+                it
+            )
+        }
         .startWith(HomeState.Loading)
         .onErrorReturn { HomeState.Error(it) }
         .toLiveData()
@@ -39,13 +40,21 @@ class HomeViewModel @Inject constructor(private val getHomeSections: GetHomeSect
     }
 
     private fun HomeSection.FeaturedArtists.toHomeItems(): List<HomeItem> {
-        return mutableListOf<HomeItem>(HomeItem.Divider(HomeTitle.FEATURED)).apply {
+        return mutableListOf<HomeItem>(
+            HomeItem.Divider(
+                HomeTitle.FEATURED
+            )
+        ).apply {
             addAll(artists.map { HomeItem.ArtistItem(it) })
         }
     }
 
     private fun HomeSection.AllArtists.toHomeItems(): List<HomeItem> {
-        return mutableListOf<HomeItem>(HomeItem.Divider(HomeTitle.ALL_ARTISTS)).apply {
+        return mutableListOf<HomeItem>(
+            HomeItem.Divider(
+                HomeTitle.ALL_ARTISTS
+            )
+        ).apply {
             addAll(artists.map { HomeItem.ArtistItem(it) })
         }
     }

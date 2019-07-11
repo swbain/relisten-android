@@ -1,6 +1,6 @@
 package com.stephenbain.relisten
 
-import com.stephenbain.relisten.ui.UiModule
+import com.stephenbain.relisten.common.ui.UiModule
 import dagger.Component
 import dagger.android.AndroidInjector
 import dagger.android.support.AndroidSupportInjectionModule

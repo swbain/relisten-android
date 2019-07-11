@@ -1,4 +1,4 @@
-package com.stephenbain.relisten.ui.core
+package com.stephenbain.relisten.common.ui
 
 
 sealed class ViewState<T> {

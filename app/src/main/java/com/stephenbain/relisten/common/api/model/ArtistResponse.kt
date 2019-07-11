@@ -1,4 +1,4 @@
-package com.stephenbain.relisten.api.model
+package com.stephenbain.relisten.common.api.model
 
 import com.squareup.moshi.FromJson
 import com.squareup.moshi.ToJson

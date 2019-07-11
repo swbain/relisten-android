@@ -1,6 +1,6 @@
-package com.stephenbain.relisten.ui.home
+package com.stephenbain.relisten.home.ui
 
-import com.stephenbain.relisten.repository.Artist
+import com.stephenbain.relisten.home.repository.Artist
 
 
 sealed class HomeItem {

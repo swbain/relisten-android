@@ -1,4 +1,4 @@
-package com.stephenbain.relisten.ui.core
+package com.stephenbain.relisten.common.ui
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider

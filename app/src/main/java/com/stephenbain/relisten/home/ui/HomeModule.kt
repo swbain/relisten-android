@@ -1,13 +1,14 @@
-package com.stephenbain.relisten.ui.home
+package com.stephenbain.relisten.home.ui
 
 import androidx.lifecycle.ViewModel
-import com.stephenbain.relisten.ui.core.ViewModelKey
+import com.stephenbain.relisten.common.api.ApiModule
+import com.stephenbain.relisten.common.ui.ViewModelKey
 import dagger.Binds
 import dagger.Module
 import dagger.android.ContributesAndroidInjector
 import dagger.multibindings.IntoMap
 
-@Module(includes = [HomeModule.BindViewModel::class])
+@Module(includes = [HomeModule.BindViewModel::class, ApiModule::class])
 abstract class HomeModule {
 
     @ContributesAndroidInjector

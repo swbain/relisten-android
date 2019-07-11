@@ -1,9 +1,8 @@
-package com.stephenbain.relisten.ui
+package com.stephenbain.relisten.common.ui
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import com.stephenbain.relisten.api.ApiModule
-import com.stephenbain.relisten.ui.home.HomeModule
+import com.stephenbain.relisten.home.ui.HomeModule
 import dagger.Module
 import dagger.Provides
 import dagger.android.support.AndroidSupportInjectionModule
@@ -11,7 +10,7 @@ import javax.inject.Provider
 import javax.inject.Singleton
 
 
-@Module(includes = [AndroidSupportInjectionModule::class, HomeModule::class, ApiModule::class])
+@Module(includes = [AndroidSupportInjectionModule::class, HomeModule::class])
 class UiModule {
 
     @Provides

@@ -1,11 +1,10 @@
-package com.stephenbain.relisten.domain
+package com.stephenbain.relisten.home.domain
 
-import com.stephenbain.relisten.domain.model.HomeSection
-import com.stephenbain.relisten.repository.Artist
-import com.stephenbain.relisten.repository.ArtistRepository
+import com.stephenbain.relisten.home.domain.model.HomeSection
+import com.stephenbain.relisten.home.repository.Artist
+import com.stephenbain.relisten.home.repository.ArtistRepository
 import io.reactivex.Observable
 import io.reactivex.rxkotlin.Observables
-import io.reactivex.rxkotlin.concatAll
 import io.reactivex.rxkotlin.toObservable
 import javax.inject.Inject
 
