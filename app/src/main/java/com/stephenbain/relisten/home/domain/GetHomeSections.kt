@@ -21,7 +21,12 @@ class GetHomeSections @Inject constructor(private val artistRepository: ArtistRe
     }
 
     private fun getHomeSections(artists: List<Artist>): List<HomeSection> {
-        return listOf(getFeaturedArtists(artists), getAllArtists(artists))
+        return listOf(getFeaturedArtists(artists), getAllArtists(artists)).filter {
+            when (it) {
+                is HomeSection.FeaturedArtists -> it.artists.isNotEmpty()
+                is HomeSection.AllArtists -> it.artists.isNotEmpty()
+            }
+        }
     }
 
     private fun getRecentlyPlayed(): Observable<HomeSection> {
