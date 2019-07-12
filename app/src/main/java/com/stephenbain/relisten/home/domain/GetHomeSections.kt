@@ -1,12 +1,9 @@
 package com.stephenbain.relisten.home.domain
 
+import com.stephenbain.relisten.common.Artist
 import com.stephenbain.relisten.home.domain.model.HomeSection
-import com.stephenbain.relisten.home.repository.Artist
 import com.stephenbain.relisten.home.repository.ArtistRepository
 import io.reactivex.Observable
-import io.reactivex.Single
-import io.reactivex.rxkotlin.Observables
-import io.reactivex.rxkotlin.toObservable
 import timber.log.Timber
 import javax.inject.Inject
 

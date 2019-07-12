@@ -1,6 +1,6 @@
 package com.stephenbain.relisten.home.domain.model
 
-import com.stephenbain.relisten.home.repository.Artist
+import com.stephenbain.relisten.common.Artist
 
 
 sealed class HomeSection {

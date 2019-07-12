@@ -1,7 +1,7 @@
 package com.stephenbain.relisten.home.domain
 
+import com.stephenbain.relisten.common.Artist
 import com.stephenbain.relisten.home.domain.model.HomeSection
-import com.stephenbain.relisten.home.repository.Artist
 import com.stephenbain.relisten.home.repository.ArtistRepository
 import io.mockk.MockKAnnotations
 import io.mockk.every
