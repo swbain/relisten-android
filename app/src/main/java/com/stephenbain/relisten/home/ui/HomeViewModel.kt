@@ -6,6 +6,8 @@ import com.stephenbain.relisten.home.domain.model.HomeSection
 import io.reactivex.BackpressureStrategy
 import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.disposables.CompositeDisposable
+import io.reactivex.rxkotlin.subscribeBy
 import io.reactivex.schedulers.Schedulers
 import timber.log.Timber
 import javax.inject.Inject
@@ -13,18 +15,27 @@ import javax.inject.Inject
 
 class HomeViewModel @Inject constructor(private val getHomeSections: GetHomeSections) : ViewModel() {
 
-    val state: LiveData<HomeState> = getHomeItems().toFlowable(BackpressureStrategy.LATEST)
-        .subscribeOn(Schedulers.io())
-        .observeOn(AndroidSchedulers.mainThread())
-        .doOnError { Timber.e(it) }
-        .map<HomeState> {
-            HomeState.Success(
-                it
-            )
-        }
-        .startWith(HomeState.Loading)
-        .onErrorReturn { HomeState.Error(it) }
-        .toLiveData()
+    private val disposable = CompositeDisposable()
+    private val _state = MutableLiveData<HomeState>()
+
+    val state: LiveData<HomeState> = _state
+
+    init {
+        disposable.add(
+            getHomeItems().doOnError { Timber.e(it) }
+                .map<HomeState> { HomeState.Success(it) }
+                .onErrorReturn { HomeState.Error(it) }
+                .startWith(HomeState.Loading)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(_state::postValue)
+        )
+    }
+
+    override fun onCleared() {
+        super.onCleared()
+        disposable.clear()
+    }
 
     private fun getHomeItems(): Observable<List<HomeItem>> {
         return getHomeSections().map { sections ->
