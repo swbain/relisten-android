@@ -1,27 +1,26 @@
 package com.stephenbain.relisten.home.ui
 
-import androidx.lifecycle.*
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
+import com.stephenbain.relisten.common.ui.BaseViewModel
 import com.stephenbain.relisten.home.domain.GetHomeSections
 import com.stephenbain.relisten.home.domain.model.HomeSection
-import io.reactivex.BackpressureStrategy
 import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.disposables.CompositeDisposable
-import io.reactivex.rxkotlin.subscribeBy
 import io.reactivex.schedulers.Schedulers
 import timber.log.Timber
 import javax.inject.Inject
 
 
-class HomeViewModel @Inject constructor(private val getHomeSections: GetHomeSections) : ViewModel() {
+class HomeViewModel @Inject constructor(private val getHomeSections: GetHomeSections) : BaseViewModel() {
 
-    private val disposable = CompositeDisposable()
     private val _state = MutableLiveData<HomeState>()
 
-    val state: LiveData<HomeState> = _state
+    val state: LiveData<HomeState>
+        get() = _state
 
     init {
-        disposable.add(
+        autoDispose {
             getHomeItems().doOnError { Timber.e(it) }
                 .map<HomeState> { HomeState.Success(it) }
                 .onErrorReturn { HomeState.Error(it) }
@@ -29,12 +28,7 @@ class HomeViewModel @Inject constructor(private val getHomeSections: GetHomeSect
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(_state::postValue)
-        )
-    }
-
-    override fun onCleared() {
-        super.onCleared()
-        disposable.clear()
+        }
     }
 
     private fun getHomeItems(): Observable<List<HomeItem>> {
