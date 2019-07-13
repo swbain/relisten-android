@@ -12,14 +12,15 @@ import javax.inject.Inject
 class ArtistsRepository @Inject constructor(private val relistenApi: RelistenApi, private val artistDao: ArtistDao) {
 
     fun getArtists(): Observable<List<Artist>> {
-        return fetchAndSaveArtists().startWith(artistDao.getAllArtists().first(emptyList()).toObservable())
+        return fetchAndSaveArtists()
+            .startWith(artistDao.getAllArtists().firstElement().filter { it.isNotEmpty() }.toObservable())
             .concatWith(artistDao.getAllArtists())
             .distinct()
     }
 
     private fun fetchAndSaveArtists(): Completable {
         return relistenApi.getArtists()
-            .doOnError { Timber.e(it, "Error requesting artists") }
+            .doOnError { Timber.e(it, "Error requesting artists from api") }
             .onErrorReturnItem(emptyList())
             .flatMapCompletable { if (it.isNotEmpty()) artistDao.putArtists(it) else Completable.complete() }
     }
