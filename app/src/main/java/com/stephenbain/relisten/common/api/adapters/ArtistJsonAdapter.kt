@@ -1,4 +1,4 @@
-package com.stephenbain.relisten.common.api.model
+package com.stephenbain.relisten.common.api.adapters
 
 import com.squareup.moshi.FromJson
 import com.squareup.moshi.ToJson
@@ -17,9 +17,10 @@ class ArtistJsonAdapter {
     )
 
     @ToJson
-    fun artistToJson(artist: Artist): ArtistJson = ArtistJson(
-        id = artist.id,
-        name = artist.name,
-        featured = if (artist.isFeatured) 1 else 0
-    )
+    fun artistToJson(artist: Artist): ArtistJson =
+        ArtistJson(
+            id = artist.id,
+            name = artist.name,
+            featured = if (artist.isFeatured) 1 else 0
+        )
 }

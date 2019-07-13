@@ -1,7 +1,7 @@
 package com.stephenbain.relisten.common.api
 
 import com.squareup.moshi.Moshi
-import com.stephenbain.relisten.common.api.model.ArtistJsonAdapter
+import com.stephenbain.relisten.common.api.adapters.ArtistJsonAdapter
 import dagger.Module
 import dagger.Provides
 import retrofit2.Retrofit

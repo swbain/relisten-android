@@ -2,16 +2,16 @@ package com.stephenbain.relisten.home.domain
 
 import com.stephenbain.relisten.common.Artist
 import com.stephenbain.relisten.home.domain.model.HomeSection
-import com.stephenbain.relisten.home.repository.ArtistRepository
+import com.stephenbain.relisten.home.repository.ArtistsRepository
 import io.reactivex.Observable
 import timber.log.Timber
 import javax.inject.Inject
 
 
-class GetHomeSections @Inject constructor(private val artistRepository: ArtistRepository) {
+class GetHomeSections @Inject constructor(private val artistsRepository: ArtistsRepository) {
 
     operator fun invoke(): Observable<List<HomeSection>> {
-        return artistRepository.getArtists()
+        return artistsRepository.getArtists()
             .doOnError { Timber.e(it, "Error getting all artists from repo") }
             .onErrorReturnItem(emptyList())
             .map(::getHomeSections)
