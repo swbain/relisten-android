@@ -11,8 +11,14 @@ class DbModule {
 
     @Provides
     @Singleton
-    fun providesArtistDao(context: Context): ArtistDao {
-        return Room.databaseBuilder(context, AppDatabase::class.java, "db").build().artistDao()
+    fun providesArtistDao(db: AppDatabase): ArtistDao {
+        return db.artistDao()
+    }
+
+    @Provides
+    @Singleton
+    fun providesAppDatabase(context: Context): AppDatabase {
+        return Room.databaseBuilder(context, AppDatabase::class.java, "app_db").build()
     }
 
 }
