@@ -35,7 +35,7 @@ class ArtistsRepositoryTest {
 
     @Test
     fun getArtists_apiError() {
-        every { relistenApi.getArtists() } returns Single.error(Throwable("404"))
+        every { relistenApi.getArtists() } returns Single.error { Throwable("404!") }
         every { artistDao.getAllArtists() } returns Observable.just(emptyList())
         artistsRepository.getArtists().test()
         verify(inverse = true) { artistDao.putArtists(any()) }

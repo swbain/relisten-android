@@ -2,7 +2,7 @@ package com.stephenbain.relisten.common.ui
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import com.stephenbain.relisten.home.ui.HomeModule
+import com.stephenbain.relisten.home.HomeModule
 import dagger.Module
 import dagger.Provides
 import dagger.android.support.AndroidSupportInjectionModule

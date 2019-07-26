@@ -1,15 +1,20 @@
 package com.stephenbain.relisten.common.db
 
+import androidx.room.Dao
+import androidx.room.Insert
+import androidx.room.OnConflictStrategy
+import androidx.room.Query
 import com.stephenbain.relisten.common.Artist
 import io.reactivex.Completable
 import io.reactivex.Observable
-import javax.inject.Inject
 
+@Dao
+interface ArtistDao {
 
-class ArtistDao @Inject constructor() {
+    @Query("SELECT * FROM artist")
+    fun getAllArtists(): Observable<List<Artist>>
 
-    fun getAllArtists(): Observable<List<Artist>> = TODO()
-
-    fun putArtists(artists: List<Artist>): Completable = TODO()
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    fun putArtists(artists: List<Artist>): Completable
 
 }

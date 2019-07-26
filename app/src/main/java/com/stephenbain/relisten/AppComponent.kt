@@ -8,10 +8,8 @@ import javax.inject.Singleton
 
 
 @Singleton
-@Component(modules = [AndroidSupportInjectionModule::class, UiModule::class])
+@Component(modules = [AndroidSupportInjectionModule::class, UiModule::class, AppModule::class])
 interface AppComponent : AndroidInjector<RelistenApp> {
     @Component.Builder
-    interface Builder {
-        fun build(): AppComponent
-    }
+    abstract class Builder : AndroidInjector.Builder<RelistenApp>()
 }

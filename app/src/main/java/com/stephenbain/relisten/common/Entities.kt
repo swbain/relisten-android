@@ -1,7 +1,12 @@
 package com.stephenbain.relisten.common
 
+import androidx.room.ColumnInfo
+import androidx.room.Entity
+import androidx.room.PrimaryKey
+
+@Entity
 data class Artist(
-    val id: Int,
+    @PrimaryKey val id: Int,
     val name: String,
-    val isFeatured: Boolean
+    @ColumnInfo(name = "is_featured") val isFeatured: Boolean
 )

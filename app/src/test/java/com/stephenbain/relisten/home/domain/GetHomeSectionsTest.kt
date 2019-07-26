@@ -29,7 +29,7 @@ class GetHomeSectionsTest {
 
     @Test
     fun invoke_errorGettingArtists() {
-        every { artistsRepo.getArtists() } returns Observable.error(Throwable("404"))
+        every { artistsRepo.getArtists() } returns Observable.error(Throwable("something bad happened!"))
         val observer = getHomeSections().test()
         observer.assertValue(emptyList())
         observer.dispose()
