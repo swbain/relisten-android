@@ -16,5 +16,4 @@ interface ArtistDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun putArtists(artists: List<Artist>): Completable
-
 }

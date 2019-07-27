@@ -5,9 +5,8 @@ import com.stephenbain.relisten.common.api.RelistenApi
 import com.stephenbain.relisten.common.db.ArtistDao
 import io.reactivex.Completable
 import io.reactivex.Observable
-import timber.log.Timber
 import javax.inject.Inject
-
+import timber.log.Timber
 
 class ArtistsRepository @Inject constructor(private val relistenApi: RelistenApi, private val artistDao: ArtistDao) {
 
@@ -24,5 +23,4 @@ class ArtistsRepository @Inject constructor(private val relistenApi: RelistenApi
             .onErrorReturnItem(emptyList())
             .flatMapCompletable { if (it.isNotEmpty()) artistDao.putArtists(it) else Completable.complete() }
     }
-
 }

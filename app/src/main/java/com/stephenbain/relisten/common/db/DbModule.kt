@@ -20,5 +20,4 @@ class DbModule {
     fun providesAppDatabase(context: Context): AppDatabase {
         return Room.databaseBuilder(context, AppDatabase::class.java, "app_db").build()
     }
-
 }

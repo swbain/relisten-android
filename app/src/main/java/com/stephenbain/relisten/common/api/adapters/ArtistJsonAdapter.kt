@@ -4,7 +4,6 @@ import com.squareup.moshi.FromJson
 import com.squareup.moshi.ToJson
 import com.stephenbain.relisten.common.Artist
 
-
 data class ArtistJson(val id: Int, val name: String, val featured: Int)
 
 class ArtistJsonAdapter {

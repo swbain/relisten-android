@@ -7,12 +7,10 @@ import io.mockk.MockKAnnotations
 import io.mockk.every
 import io.mockk.impl.annotations.MockK
 import io.mockk.verify
-import io.mockk.verifyAll
 import io.reactivex.Observable
 import io.reactivex.Single
 import org.junit.Before
 import org.junit.Test
-
 
 class ArtistsRepositoryTest {
 
@@ -57,5 +55,4 @@ class ArtistsRepositoryTest {
         artistsRepository.getArtists().test()
         verify { artistDao.putArtists(artists) }
     }
-
 }

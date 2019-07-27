@@ -10,7 +10,6 @@ import io.reactivex.Observable
 import org.junit.Before
 import org.junit.Test
 
-
 class GetHomeSectionsTest {
 
     @MockK
@@ -56,5 +55,4 @@ class GetHomeSectionsTest {
         ))
         observer.dispose()
     }
-
 }

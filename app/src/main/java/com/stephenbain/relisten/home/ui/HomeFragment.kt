@@ -17,7 +17,6 @@ import kotlinx.android.extensions.LayoutContainer
 import kotlinx.android.synthetic.main.fragment_home.*
 import kotlinx.android.synthetic.main.item_home.*
 
-
 class HomeFragment : BaseFragment() {
 
     private val viewModel by lazy { getViewModel<HomeViewModel>() }
@@ -102,7 +101,6 @@ class HomeFragment : BaseFragment() {
                 }
             }
         }
-
     }
 
     private class HomeItemViewHolder(override val containerView: View) : RecyclerView.ViewHolder(containerView),
@@ -127,6 +125,5 @@ class HomeFragment : BaseFragment() {
             name.text = item.artist.name
             name.setTextColor(ContextCompat.getColor(containerView.context, android.R.color.black))
         }
-
     }
 }

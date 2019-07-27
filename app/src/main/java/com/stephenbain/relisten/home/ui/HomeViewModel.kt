@@ -8,9 +8,8 @@ import com.stephenbain.relisten.home.domain.model.HomeSection
 import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
-import timber.log.Timber
 import javax.inject.Inject
-
+import timber.log.Timber
 
 class HomeViewModel @Inject constructor(private val getHomeSections: GetHomeSections) : BaseViewModel() {
 

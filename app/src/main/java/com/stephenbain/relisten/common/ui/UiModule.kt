@@ -9,7 +9,6 @@ import dagger.android.support.AndroidSupportInjectionModule
 import javax.inject.Provider
 import javax.inject.Singleton
 
-
 @Module(includes = [AndroidSupportInjectionModule::class, HomeModule::class])
 class UiModule {
 
@@ -30,5 +29,4 @@ class UiModule {
             }
         }
     }
-
 }

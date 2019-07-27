@@ -6,7 +6,6 @@ import androidx.lifecycle.ViewModelProviders
 import dagger.android.support.DaggerFragment
 import javax.inject.Inject
 
-
 abstract class BaseFragment : DaggerFragment() {
 
     @Inject lateinit var viewModelFactory: ViewModelProvider.Factory
@@ -14,5 +13,4 @@ abstract class BaseFragment : DaggerFragment() {
     protected inline fun <reified T : ViewModel> getViewModel(): T {
         return ViewModelProviders.of(this, viewModelFactory).get(T::class.java)
     }
-
 }

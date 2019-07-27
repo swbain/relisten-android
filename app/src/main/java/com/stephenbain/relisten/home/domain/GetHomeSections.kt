@@ -4,9 +4,8 @@ import com.stephenbain.relisten.common.Artist
 import com.stephenbain.relisten.home.domain.model.HomeSection
 import com.stephenbain.relisten.home.repository.ArtistsRepository
 import io.reactivex.Observable
-import timber.log.Timber
 import javax.inject.Inject
-
+import timber.log.Timber
 
 class GetHomeSections @Inject constructor(private val artistsRepository: ArtistsRepository) {
 
@@ -43,5 +42,4 @@ class GetHomeSections @Inject constructor(private val artistsRepository: Artists
     private fun getAllArtists(artists: List<Artist>): HomeSection {
         return HomeSection.AllArtists(artists)
     }
-
 }
