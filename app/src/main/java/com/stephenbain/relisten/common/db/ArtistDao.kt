@@ -11,7 +11,7 @@ import io.reactivex.Observable
 @Dao
 interface ArtistDao {
 
-    @Query("SELECT * FROM artist")
+    @Query("SELECT * FROM artist ORDER BY is_featured DESC, name ASC")
     fun getAllArtists(): Observable<List<Artist>>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
