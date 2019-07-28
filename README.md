@@ -3,7 +3,7 @@
 
 An Android app for streaming millions of free music recordings from the Internet Archive http://relisten.net
 
-Technologies used:
+Libraries used:
 - Kotlin
 - RxJava/RxKotlin
 - Jetpack Components (ViewModel/LiveData/Navigation/Room)
