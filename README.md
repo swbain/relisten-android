@@ -11,3 +11,4 @@ Libraries used:
 - Moshi
 - Retrofit
 - Ktlint
+- Mockk
