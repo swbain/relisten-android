@@ -12,9 +12,16 @@ class ArtistsRepository @Inject constructor(private val relistenApi: RelistenApi
 
     fun getArtists(): Observable<List<Artist>> {
         return fetchAndSaveArtists()
-            .startWith(artistDao.getAllArtists().firstElement().filter { it.isNotEmpty() }.toObservable())
+            .startWith(getFirstResponseFromDb())
             .concatWith(artistDao.getAllArtists())
             .distinct()
+    }
+
+    private fun getFirstResponseFromDb(): Observable<List<Artist>> {
+        return artistDao.getAllArtists()
+            .firstElement()
+            .filter { it.isNotEmpty() }
+            .toObservable()
     }
 
     private fun fetchAndSaveArtists(): Completable {
