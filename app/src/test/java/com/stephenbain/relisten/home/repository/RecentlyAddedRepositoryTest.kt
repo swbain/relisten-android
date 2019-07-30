@@ -52,7 +52,7 @@ class RecentlyAddedRepositoryTest {
 
     @Test
     private fun getRecentlyAddedShows_validApiResponse() {
-        val shows = listOf(Show(id = 0, artist = Artist(id = 0, name = "artist", isFeatured = false), date = "date"))
+        val shows = listOf(Show(id = 0, artist = Artist(id = 0, name = "artist", isFeatured = false), displayDate = "date"))
         every { dao.getRecentlyAddedShows() } returns Observable.empty()
         every { api.getRecentlyAddedShows() } returns Single.just(shows)
         val observer = repository.getRecentlyAddedShows().test()
