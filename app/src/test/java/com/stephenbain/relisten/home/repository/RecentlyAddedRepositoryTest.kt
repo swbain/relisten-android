@@ -33,7 +33,7 @@ class RecentlyAddedRepositoryTest {
     }
 
     @Test
-    private fun getRecentlyAddedShows_apiError() {
+    fun getRecentlyAddedShows_apiError() {
         every { dao.getRecentlyAddedShows() } returns Observable.empty()
         every { api.getRecentlyAddedShows() } returns Single.error(Throwable("404"))
         val observer = repository.getRecentlyAddedShows().test()
@@ -42,7 +42,7 @@ class RecentlyAddedRepositoryTest {
     }
 
     @Test
-    private fun getRecentlyAddedShows_emptyApiResponse() {
+    fun getRecentlyAddedShows_emptyApiResponse() {
         every { dao.getRecentlyAddedShows() } returns Observable.empty()
         every { api.getRecentlyAddedShows() } returns Single.just(emptyList())
         val observer = repository.getRecentlyAddedShows().test()
@@ -51,7 +51,7 @@ class RecentlyAddedRepositoryTest {
     }
 
     @Test
-    private fun getRecentlyAddedShows_validApiResponse() {
+    fun getRecentlyAddedShows_validApiResponse() {
         val shows = listOf(Show(id = 0, artist = Artist(id = 0, name = "artist", isFeatured = false), displayDate = "date"))
         every { dao.getRecentlyAddedShows() } returns Observable.empty()
         every { api.getRecentlyAddedShows() } returns Single.just(shows)
