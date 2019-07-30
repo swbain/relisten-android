@@ -128,7 +128,7 @@ class HomeFragment : BaseFragment() {
         }
 
         private fun bind(item: HomeItem.ShowsItem) {
-            name.text = item.shows.map { "${it.artist.name} ${it.date}" }.toString()
+            name.text = item.shows.map { "${it.artist.name} ${it.displayDate}" }.toString()
         }
     }
 }
