@@ -15,12 +15,12 @@ import org.junit.Test
 class ArtistsRepositoryTest {
 
     @MockK
-    lateinit var artistDao: ArtistDao
+    private lateinit var artistDao: ArtistDao
 
     @MockK
-    lateinit var relistenApi: RelistenApi
+    private lateinit var relistenApi: RelistenApi
 
-    lateinit var artistsRepository: ArtistsRepository
+    private lateinit var artistsRepository: ArtistsRepository
 
     init {
         MockKAnnotations.init(this)
@@ -35,16 +35,18 @@ class ArtistsRepositoryTest {
     fun getArtists_apiError() {
         every { relistenApi.getArtists() } returns Single.error { Throwable("404!") }
         every { artistDao.getAllArtists() } returns Observable.just(emptyList())
-        artistsRepository.getArtists().test()
+        val observer = artistsRepository.getArtists().test()
         verify(inverse = true) { artistDao.putArtists(any()) }
+        observer.dispose()
     }
 
     @Test
     fun getArtists_emptyApiResponse() {
         every { relistenApi.getArtists() } returns Single.just(emptyList())
         every { artistDao.getAllArtists() } returns Observable.just(emptyList())
-        artistsRepository.getArtists().test()
+        val observer = artistsRepository.getArtists().test()
         verify(inverse = true) { artistDao.putArtists(any()) }
+        observer.dispose()
     }
 
     @Test
@@ -52,7 +54,8 @@ class ArtistsRepositoryTest {
         val artists = listOf(Artist(id = 1, name = "artist", isFeatured = false))
         every { relistenApi.getArtists() } returns Single.just(artists)
         every { artistDao.getAllArtists() } returns Observable.just(emptyList())
-        artistsRepository.getArtists().test()
+        val observer = artistsRepository.getArtists().test()
         verify { artistDao.putArtists(artists) }
+        observer.dispose()
     }
 }

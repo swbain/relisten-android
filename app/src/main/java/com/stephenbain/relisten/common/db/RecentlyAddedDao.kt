@@ -4,16 +4,16 @@ import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
-import com.stephenbain.relisten.common.Artist
+import com.stephenbain.relisten.common.Show
 import io.reactivex.Completable
 import io.reactivex.Observable
 
 @Dao
-interface ArtistDao {
+interface RecentlyAddedDao {
 
-    @Query("SELECT * FROM artists ORDER BY is_featured DESC, name ASC")
-    fun getAllArtists(): Observable<List<Artist>>
+    @Query("SELECT * FROM shows")
+    fun getRecentlyAddedShows(): Observable<List<Show>>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun putArtists(artists: List<Artist>): Completable
+    fun putRecentlyAddedShows(shows: List<Show>): Completable
 }

@@ -17,6 +17,12 @@ class DbModule {
 
     @Provides
     @Singleton
+    fun providesRecentlyAddedDao(db: AppDatabase): RecentlyAddedDao {
+        return db.recentlyAddedDao()
+    }
+
+    @Provides
+    @Singleton
     fun providesAppDatabase(context: Context): AppDatabase {
         return Room.databaseBuilder(context, AppDatabase::class.java, "app_db").build()
     }

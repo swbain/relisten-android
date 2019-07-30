@@ -40,6 +40,7 @@ class HomeViewModel @Inject constructor(private val getHomeSections: GetHomeSect
         return when (section) {
             is HomeSection.FeaturedArtists -> section.toHomeItems()
             is HomeSection.AllArtists -> section.toHomeItems()
+            is HomeSection.RecentShows -> section.toHomeItems()
         }
     }
 
@@ -61,6 +62,10 @@ class HomeViewModel @Inject constructor(private val getHomeSections: GetHomeSect
         ).apply {
             addAll(artists.map { HomeItem.ArtistItem(it) })
         }
+    }
+
+    private fun HomeSection.RecentShows.toHomeItems(): List<HomeItem> {
+        return listOf(HomeItem.Divider(HomeTitle.LATEST_RECORDINGS), HomeItem.ShowsItem(shows))
     }
 
     sealed class HomeState {

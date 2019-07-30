@@ -109,6 +109,7 @@ class HomeFragment : BaseFragment() {
         fun bind(item: HomeItem) = when (item) {
             is HomeItem.Divider -> bind(item)
             is HomeItem.ArtistItem -> bind(item)
+            is HomeItem.ShowsItem -> bind(item)
         }
 
         private fun bind(item: HomeItem.Divider) {
@@ -124,6 +125,10 @@ class HomeFragment : BaseFragment() {
         private fun bind(item: HomeItem.ArtistItem) {
             name.text = item.artist.name
             name.setTextColor(ContextCompat.getColor(containerView.context, android.R.color.black))
+        }
+
+        private fun bind(item: HomeItem.ShowsItem) {
+            name.text = item.shows.map { "${it.artist.name} ${it.date}" }.toString()
         }
     }
 }

@@ -16,10 +16,9 @@ class ArtistJsonAdapter {
     )
 
     @ToJson
-    fun artistToJson(artist: Artist): ArtistJson =
-        ArtistJson(
-            id = artist.id,
-            name = artist.name,
-            featured = if (artist.isFeatured) 1 else 0
-        )
+    fun artistToJson(artist: Artist): ArtistJson = ArtistJson(
+        id = artist.id,
+        name = artist.name,
+        featured = if (artist.isFeatured) 1 else 0
+    )
 }
