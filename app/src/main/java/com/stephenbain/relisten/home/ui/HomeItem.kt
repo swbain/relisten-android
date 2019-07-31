@@ -9,6 +9,9 @@ sealed class HomeItem {
     data class ShowsItem(val shows: List<Show>) : HomeItem()
 }
 
-enum class HomeTitle {
-    RECENTLY_PLAYED, FEATURED, LATEST_RECORDINGS, ALL_ARTISTS
+sealed class HomeTitle {
+    object RecentlyPlayed : HomeTitle()
+    object Featured : HomeTitle()
+    object LatestRecordings : HomeTitle()
+    data class AllArtists(val count: Int) : HomeTitle()
 }

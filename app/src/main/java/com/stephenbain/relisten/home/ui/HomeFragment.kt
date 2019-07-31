@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.DiffUtil
@@ -15,7 +14,9 @@ import com.stephenbain.relisten.R
 import com.stephenbain.relisten.common.ui.BaseFragment
 import kotlinx.android.extensions.LayoutContainer
 import kotlinx.android.synthetic.main.fragment_home.*
-import kotlinx.android.synthetic.main.item_home.*
+import kotlinx.android.synthetic.main.home_item_artist.*
+import kotlinx.android.synthetic.main.home_item_divider.*
+import kotlinx.android.synthetic.main.home_item_shows.*
 
 class HomeFragment : BaseFragment() {
 
@@ -61,13 +62,28 @@ class HomeFragment : BaseFragment() {
         adapter.submitList(items)
     }
 
-    private class HomeAdapter : ListAdapter<HomeItem, HomeItemViewHolder>(
-        DIFF_CALLBACK
-    ) {
+    private class HomeAdapter : ListAdapter<HomeItem, HomeItemViewHolder>(DIFF_CALLBACK) {
 
         override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): HomeItemViewHolder {
-            val view = LayoutInflater.from(parent.context).inflate(R.layout.item_home, parent, false)
+            val view = LayoutInflater.from(parent.context).inflate(
+                when (viewType) {
+                    VIEW_TYPE_DIVIDER -> R.layout.home_item_divider
+                    VIEW_TYPE_ARTIST -> R.layout.home_item_artist
+                    VIEW_TYPE_SHOWS -> R.layout.home_item_shows
+                    else -> throw IllegalArgumentException("Unsupported viewType $viewType")
+                },
+                parent,
+                false
+            )
             return HomeItemViewHolder(view)
+        }
+
+        override fun getItemViewType(position: Int): Int {
+            return when (getItem(position)) {
+                is HomeItem.Divider -> VIEW_TYPE_DIVIDER
+                is HomeItem.ArtistItem -> VIEW_TYPE_ARTIST
+                is HomeItem.ShowsItem -> VIEW_TYPE_SHOWS
+            }
         }
 
         override fun onBindViewHolder(holder: HomeItemViewHolder, position: Int) {
@@ -84,6 +100,7 @@ class HomeFragment : BaseFragment() {
                         oldItem is HomeItem.ArtistItem && newItem is HomeItem.ArtistItem -> {
                             oldItem.artist.id == newItem.artist.id
                         }
+                        oldItem is HomeItem.ShowsItem && newItem is HomeItem.ShowsItem -> true
                         else -> false
                     }
                 }
@@ -91,15 +108,22 @@ class HomeFragment : BaseFragment() {
                 override fun areContentsTheSame(oldItem: HomeItem, newItem: HomeItem): Boolean {
                     return when {
                         oldItem is HomeItem.Divider && newItem is HomeItem.Divider -> {
-                            oldItem.title == newItem.title
+                            oldItem.title.toString() == newItem.title.toString()
                         }
                         oldItem is HomeItem.ArtistItem && newItem is HomeItem.ArtistItem -> {
                             oldItem.artist == newItem.artist
+                        }
+                        oldItem is HomeItem.ShowsItem && newItem is HomeItem.ShowsItem -> {
+                            oldItem.shows == newItem.shows
                         }
                         else -> false
                     }
                 }
             }
+
+            private const val VIEW_TYPE_DIVIDER = 0
+            private const val VIEW_TYPE_ARTIST = 1
+            private const val VIEW_TYPE_SHOWS = 2
         }
     }
 
@@ -113,22 +137,21 @@ class HomeFragment : BaseFragment() {
         }
 
         private fun bind(item: HomeItem.Divider) {
-            name.text = when (item.title) {
-                HomeTitle.RECENTLY_PLAYED -> "recently played"
-                HomeTitle.FEATURED -> "featured"
-                HomeTitle.LATEST_RECORDINGS -> "latest recordings"
-                HomeTitle.ALL_ARTISTS -> "all artists"
+            val resources = containerView.resources
+            dividerTitle.text = when (item.title) {
+                HomeTitle.RecentlyPlayed -> resources.getString(R.string.recently_played)
+                HomeTitle.Featured -> resources.getString(R.string.featured)
+                HomeTitle.LatestRecordings -> resources.getString(R.string.latest_recordings)
+                is HomeTitle.AllArtists -> resources.getString(R.string.all_artists, item.title.count)
             }
-            name.setTextColor(ContextCompat.getColor(containerView.context, android.R.color.holo_red_dark))
         }
 
         private fun bind(item: HomeItem.ArtistItem) {
-            name.text = item.artist.name
-            name.setTextColor(ContextCompat.getColor(containerView.context, android.R.color.black))
+            artistName.text = item.artist.name
         }
 
         private fun bind(item: HomeItem.ShowsItem) {
-            name.text = item.shows.map { "${it.artist.name} ${it.displayDate}" }.toString()
+            showsRecycler.setShows(item.shows)
         }
     }
 }

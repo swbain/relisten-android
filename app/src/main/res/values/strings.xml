@@ -1,4 +1,8 @@
 <resources>
     <string name="app_name">Relisten</string>
     <string name="error_loading_featured">Error loading featured data</string>
+    <string name="recently_played">Recently Played</string>
+    <string name="featured">Featured</string>
+    <string name="latest_recordings">Latest Recordings</string>
+    <string name="all_artists">All %d Artists</string>
 </resources>

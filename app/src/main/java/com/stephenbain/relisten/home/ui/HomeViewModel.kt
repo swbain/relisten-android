@@ -45,27 +45,19 @@ class HomeViewModel @Inject constructor(private val getHomeSections: GetHomeSect
     }
 
     private fun HomeSection.FeaturedArtists.toHomeItems(): List<HomeItem> {
-        return mutableListOf<HomeItem>(
-            HomeItem.Divider(
-                HomeTitle.FEATURED
-            )
-        ).apply {
-            addAll(artists.map { HomeItem.ArtistItem(it) })
+        return artists.map { HomeItem.ArtistItem(it) }.toMutableList<HomeItem>().apply {
+            add(0, HomeItem.Divider(HomeTitle.Featured))
         }
     }
 
     private fun HomeSection.AllArtists.toHomeItems(): List<HomeItem> {
-        return mutableListOf<HomeItem>(
-            HomeItem.Divider(
-                HomeTitle.ALL_ARTISTS
-            )
-        ).apply {
-            addAll(artists.map { HomeItem.ArtistItem(it) })
+        return artists.map { HomeItem.ArtistItem(it) }.toMutableList<HomeItem>().apply {
+            add(0, HomeItem.Divider(HomeTitle.AllArtists(artists.size)))
         }
     }
 
     private fun HomeSection.RecentShows.toHomeItems(): List<HomeItem> {
-        return listOf(HomeItem.Divider(HomeTitle.LATEST_RECORDINGS), HomeItem.ShowsItem(shows))
+        return listOf(HomeItem.Divider(HomeTitle.LatestRecordings), HomeItem.ShowsItem(shows))
     }
 
     sealed class HomeState {
