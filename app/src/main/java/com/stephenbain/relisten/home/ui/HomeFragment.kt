@@ -50,6 +50,4 @@ class HomeFragment : BaseFragment() {
 
         homeRecycler.setItems(items)
     }
-
-
 }

@@ -16,7 +16,6 @@ import kotlinx.android.synthetic.main.home_item_artist.*
 import kotlinx.android.synthetic.main.home_item_divider.*
 import kotlinx.android.synthetic.main.home_item_shows.*
 
-
 class HomeRecycler(context: Context, attrs: AttributeSet) : RecyclerView(context, attrs) {
 
     private val homeAdapter = HomeAdapter()
@@ -115,5 +114,4 @@ class HomeRecycler(context: Context, attrs: AttributeSet) : RecyclerView(context
             showsRecycler.setShows(item.shows)
         }
     }
-
 }
