@@ -1,4 +1,4 @@
-package com.stephenbain.relisten.home.ui
+package com.stephenbain.relisten.home.ui.widgets
 
 import android.content.Context
 import android.util.AttributeSet
@@ -23,13 +23,17 @@ class HomeShowsView(context: Context, attrs: AttributeSet) : RecyclerView(contex
         layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
     }
 
-    fun setShows(shows: List<Show>) {
-        showsAdapter.submitList(shows)
-    }
+    fun setShows(shows: List<Show>) = showsAdapter.submitList(shows)
 
     private class ShowsAdapter : BaseListAdapter<Show, ShowViewHolder>(::sameItems, ::sameContents) {
         override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ShowViewHolder {
-            return ShowViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.show_item, parent, false))
+            return ShowViewHolder(
+                LayoutInflater.from(parent.context).inflate(
+                    R.layout.show_item,
+                    parent,
+                    false
+                )
+            )
         }
     }
 

@@ -20,8 +20,8 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/artistsList"
+    <com.stephenbain.relisten.home.ui.widgets.HomeRecycler
+        android:id="@+id/homeRecycler"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 

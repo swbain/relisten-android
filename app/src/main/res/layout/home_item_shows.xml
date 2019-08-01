@@ -3,7 +3,7 @@
     android:layout_height="wrap_content"
     android:layout_width="match_parent">
 
-    <com.stephenbain.relisten.home.ui.HomeShowsView
+    <com.stephenbain.relisten.home.ui.widgets.HomeShowsView
         android:id="@+id/showsRecycler"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
