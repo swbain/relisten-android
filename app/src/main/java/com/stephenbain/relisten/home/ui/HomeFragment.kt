@@ -5,8 +5,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.view.isVisible
-import androidx.lifecycle.Observer
 import com.stephenbain.relisten.R
+import com.stephenbain.relisten.common.observe
 import com.stephenbain.relisten.common.ui.BaseFragment
 import kotlinx.android.synthetic.main.fragment_home.*
 
@@ -21,7 +21,7 @@ class HomeFragment : BaseFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        viewModel.state.observe(this, Observer { handleState(it) })
+        viewModel.state.observe(this, ::handleState)
         viewModel.fetchData()
     }
 
