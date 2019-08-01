@@ -12,6 +12,8 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.stephenbain.relisten.R
 import com.stephenbain.relisten.common.ui.BaseFragment
+import com.stephenbain.relisten.common.ui.widget.BaseListAdapter
+import com.stephenbain.relisten.common.ui.widget.BaseViewHolder
 import kotlinx.android.extensions.LayoutContainer
 import kotlinx.android.synthetic.main.fragment_home.*
 import kotlinx.android.synthetic.main.home_item_artist.*
@@ -63,7 +65,7 @@ class HomeFragment : BaseFragment() {
         adapter.submitList(items)
     }
 
-    private class HomeAdapter : ListAdapter<HomeItem, HomeItemViewHolder>(DIFF_CALLBACK) {
+    private class HomeAdapter : BaseListAdapter<HomeItem, HomeItemViewHolder>(::sameItems, ::sameContents) {
 
         override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): HomeItemViewHolder {
             val view = LayoutInflater.from(parent.context).inflate(
@@ -87,38 +89,33 @@ class HomeFragment : BaseFragment() {
             }
         }
 
-        override fun onBindViewHolder(holder: HomeItemViewHolder, position: Int) {
-            holder.bind(getItem(position))
-        }
-
         companion object {
-            private val DIFF_CALLBACK = object : DiffUtil.ItemCallback<HomeItem>() {
-                override fun areItemsTheSame(oldItem: HomeItem, newItem: HomeItem): Boolean {
-                    return when {
-                        oldItem is HomeItem.Divider && newItem is HomeItem.Divider -> {
-                            oldItem.title == newItem.title
-                        }
-                        oldItem is HomeItem.ArtistItem && newItem is HomeItem.ArtistItem -> {
-                            oldItem.artist.id == newItem.artist.id
-                        }
-                        oldItem is HomeItem.ShowsItem && newItem is HomeItem.ShowsItem -> true
-                        else -> false
-                    }
-                }
 
-                override fun areContentsTheSame(oldItem: HomeItem, newItem: HomeItem): Boolean {
-                    return when {
-                        oldItem is HomeItem.Divider && newItem is HomeItem.Divider -> {
-                            oldItem.title.toString() == newItem.title.toString()
-                        }
-                        oldItem is HomeItem.ArtistItem && newItem is HomeItem.ArtistItem -> {
-                            oldItem.artist == newItem.artist
-                        }
-                        oldItem is HomeItem.ShowsItem && newItem is HomeItem.ShowsItem -> {
-                            oldItem.shows == newItem.shows
-                        }
-                        else -> false
+            private fun sameItems(oldItem: HomeItem, newItem: HomeItem): Boolean {
+                return when {
+                    oldItem is HomeItem.Divider && newItem is HomeItem.Divider -> {
+                        oldItem.title == newItem.title
                     }
+                    oldItem is HomeItem.ArtistItem && newItem is HomeItem.ArtistItem -> {
+                        oldItem.artist.id == newItem.artist.id
+                    }
+                    oldItem is HomeItem.ShowsItem && newItem is HomeItem.ShowsItem -> true
+                    else -> false
+                }
+            }
+
+            private fun sameContents(oldItem: HomeItem, newItem: HomeItem): Boolean {
+                return when {
+                    oldItem is HomeItem.Divider && newItem is HomeItem.Divider -> {
+                        oldItem.title.toString() == newItem.title.toString()
+                    }
+                    oldItem is HomeItem.ArtistItem && newItem is HomeItem.ArtistItem -> {
+                        oldItem.artist == newItem.artist
+                    }
+                    oldItem is HomeItem.ShowsItem && newItem is HomeItem.ShowsItem -> {
+                        oldItem.shows == newItem.shows
+                    }
+                    else -> false
                 }
             }
 
@@ -128,10 +125,9 @@ class HomeFragment : BaseFragment() {
         }
     }
 
-    private class HomeItemViewHolder(override val containerView: View) : RecyclerView.ViewHolder(containerView),
-        LayoutContainer {
+    private class HomeItemViewHolder(override val containerView: View) : BaseViewHolder<HomeItem>(containerView) {
 
-        fun bind(item: HomeItem) = when (item) {
+        override fun bind(item: HomeItem) = when (item) {
             is HomeItem.Divider -> bind(item)
             is HomeItem.ArtistItem -> bind(item)
             is HomeItem.ShowsItem -> bind(item)
