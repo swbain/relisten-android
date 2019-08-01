@@ -21,7 +21,6 @@ import kotlinx.android.synthetic.main.home_item_shows.*
 class HomeFragment : BaseFragment() {
 
     private val viewModel by lazy { getViewModel<HomeViewModel>() }
-
     private val adapter by lazy { HomeAdapter() }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {

@@ -31,10 +31,6 @@ class HomeShowsView(context: Context, attrs: AttributeSet) : RecyclerView(contex
         override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ShowViewHolder {
             return ShowViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.show_item, parent, false))
         }
-
-        override fun onBindViewHolder(holder: ShowViewHolder, position: Int) {
-            holder.bind(getItem(position))
-        }
     }
 
     private class ShowViewHolder(override val containerView: View) : BaseViewHolder<Show>(containerView) {
@@ -45,7 +41,7 @@ class HomeShowsView(context: Context, attrs: AttributeSet) : RecyclerView(contex
     }
 
     companion object {
-        private fun sameItems(oldItem: Show, newItem: Show) = false
-        private fun sameContents(oldItem: Show, newItem: Show) = false
+        private fun sameItems(oldItem: Show, newItem: Show) = oldItem.id == newItem.id
+        private fun sameContents(oldItem: Show, newItem: Show) = oldItem == newItem
     }
 }

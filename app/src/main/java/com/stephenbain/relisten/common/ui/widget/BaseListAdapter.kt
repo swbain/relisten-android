@@ -13,7 +13,11 @@ abstract class BaseListAdapter<T, VH : BaseViewHolder<T>>(
     override fun areItemsTheSame(oldItem: T, newItem: T) = sameItems(oldItem, newItem)
 
     override fun areContentsTheSame(oldItem: T, newItem: T) = sameContents(oldItem, newItem)
-})
+}) {
+    override fun onBindViewHolder(holder: VH, position: Int) {
+        holder.bind(getItem(position))
+    }
+}
 
 abstract class BaseViewHolder<T>(override val containerView: View) : RecyclerView.ViewHolder(containerView), LayoutContainer {
     abstract fun bind(item: T)
