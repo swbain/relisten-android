@@ -6,25 +6,28 @@ import com.stephenbain.relisten.common.ui.BaseViewModel
 import com.stephenbain.relisten.home.domain.GetHomeSections
 import com.stephenbain.relisten.home.domain.model.HomeSection
 import io.reactivex.Observable
+import io.reactivex.Scheduler
 import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.schedulers.Schedulers
 import javax.inject.Inject
 import timber.log.Timber
 
-class HomeViewModel @Inject constructor(private val getHomeSections: GetHomeSections) : BaseViewModel() {
+class HomeViewModel @Inject constructor(
+    private val getHomeSections: GetHomeSections,
+    private val backgroundScheduler: Scheduler
+) : BaseViewModel() {
 
     private val _state = MutableLiveData<HomeState>()
 
     val state: LiveData<HomeState>
         get() = _state
 
-    init {
+    fun fetchData() {
         autoDispose {
             getHomeItems().doOnError { Timber.e(it) }
                 .map<HomeState> { HomeState.Success(it) }
                 .onErrorReturn { HomeState.Error(it) }
                 .startWith(HomeState.Loading)
-                .subscribeOn(Schedulers.io())
+                .subscribeOn(backgroundScheduler)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(_state::postValue)
         }
