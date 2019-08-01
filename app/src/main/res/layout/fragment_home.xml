@@ -36,7 +36,7 @@
         android:text="@string/error_loading_featured"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="@+id/artistsList"
+        app:layout_constraintStart_toStartOf="@+id/homeRecycler"
         app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
