@@ -7,22 +7,25 @@ import dagger.Provides
 import javax.inject.Singleton
 
 @Module
-class DbModule {
+object DbModule {
 
     @Provides
     @Singleton
+    @JvmStatic
     fun providesArtistDao(db: AppDatabase): ArtistDao {
         return db.artistDao()
     }
 
     @Provides
     @Singleton
+    @JvmStatic
     fun providesRecentlyAddedDao(db: AppDatabase): RecentlyAddedDao {
         return db.recentlyAddedDao()
     }
 
     @Provides
     @Singleton
+    @JvmStatic
     fun providesAppDatabase(context: Context): AppDatabase {
         return Room.databaseBuilder(context, AppDatabase::class.java, "app_db").build()
     }

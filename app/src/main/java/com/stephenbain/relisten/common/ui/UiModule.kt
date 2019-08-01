@@ -10,10 +10,11 @@ import javax.inject.Provider
 import javax.inject.Singleton
 
 @Module(includes = [AndroidSupportInjectionModule::class, HomeModule::class])
-class UiModule {
+object UiModule {
 
     @Provides
     @Singleton
+    @JvmStatic
     fun provideViewModelFactory(
         creators: Map<Class<out ViewModel>, @JvmSuppressWildcards Provider<ViewModel>>
     ) = object : ViewModelProvider.Factory {

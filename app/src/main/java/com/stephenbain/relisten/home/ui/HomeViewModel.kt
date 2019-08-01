@@ -11,7 +11,7 @@ import io.reactivex.schedulers.Schedulers
 import javax.inject.Inject
 import timber.log.Timber
 
-class HomeViewModel @Inject constructor(private val getHomeSections: GetHomeSections) : BaseViewModel() {
+class HomeViewModel @Inject constructor(private val getHomeSections: GetHomeSectionsz) : BaseViewModel() {
 
     private val _state = MutableLiveData<HomeState>()
 
