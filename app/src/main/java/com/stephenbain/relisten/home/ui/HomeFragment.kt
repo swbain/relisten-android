@@ -30,10 +30,12 @@ class HomeFragment : BaseFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        viewModel.state.observe(this, Observer { handleState(it) })
 
         artistsList.layoutManager = LinearLayoutManager(activity)
         artistsList.adapter = adapter
+
+        viewModel.state.observe(this, Observer { handleState(it) })
+        viewModel.fetchData()
     }
 
     private fun handleState(state: HomeViewModel.HomeState) = when (state) {

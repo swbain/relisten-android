@@ -37,8 +37,11 @@ class HomeViewModelTest {
     @Test
     fun error() {
         val throwable = Throwable("something bad happened")
+
         every { getHomeSections() } returns Observable.error(throwable)
+
         viewModel.fetchData()
+
         verify { observer.onChanged(HomeViewModel.HomeState.Loading) }
         verify { observer.onChanged(HomeViewModel.HomeState.Error(throwable)) }
     }
@@ -46,7 +49,9 @@ class HomeViewModelTest {
     @Test
     fun noHomeSections() {
         every { getHomeSections() } returns Observable.just(emptyList())
+
         viewModel.fetchData()
+
         verify { observer.onChanged(HomeViewModel.HomeState.Loading) }
         verify { observer.onChanged(HomeViewModel.HomeState.Success(emptyList())) }
     }
@@ -55,15 +60,17 @@ class HomeViewModelTest {
     fun hasArtists_noFeaturedArtists_noRecentShows() {
         val artists = listOf(Artist(id = 1, name = "artist", isFeatured = false))
         val sections = listOf(HomeSection.AllArtists(artists))
+
         every { getHomeSections() } returns Observable.just(sections)
+
         viewModel.fetchData()
 
-        val items = artists.map { HomeItem.ArtistItem(it) }.toMutableList<HomeItem>().apply {
-            add(0, HomeItem.Divider(HomeTitle.AllArtists(artists.size)))
-        }
+        val expectedItems = mutableListOf<HomeItem>()
+        expectedItems.add(HomeItem.Divider(HomeTitle.AllArtists(artists.size)))
+        expectedItems.addAll(artists.map { HomeItem.ArtistItem(it) })
 
         verify { observer.onChanged(HomeViewModel.HomeState.Loading) }
-        verify { observer.onChanged(HomeViewModel.HomeState.Success(items)) }
+        verify { observer.onChanged(HomeViewModel.HomeState.Success(expectedItems)) }
     }
 
     @Test
@@ -127,7 +134,6 @@ class HomeViewModelTest {
     fun noArtists_noFeaturedArtists_hasRecentShows() {
         val artist1 = Artist(id = 1, name = "artist 1", isFeatured = false)
         val recentShow = Show(id = 1, displayDate = "date", artist = artist1)
-
         val recentShows = listOf(recentShow)
 
         val sections = listOf(HomeSection.RecentShows(recentShows))
