@@ -6,15 +6,11 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.view.isVisible
 import androidx.lifecycle.Observer
-import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.ListAdapter
-import androidx.recyclerview.widget.RecyclerView
 import com.stephenbain.relisten.R
 import com.stephenbain.relisten.common.ui.BaseFragment
 import com.stephenbain.relisten.common.ui.widget.BaseListAdapter
 import com.stephenbain.relisten.common.ui.widget.BaseViewHolder
-import kotlinx.android.extensions.LayoutContainer
 import kotlinx.android.synthetic.main.fragment_home.*
 import kotlinx.android.synthetic.main.home_item_artist.*
 import kotlinx.android.synthetic.main.home_item_divider.*
