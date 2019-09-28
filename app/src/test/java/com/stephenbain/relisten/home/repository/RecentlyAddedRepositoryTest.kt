@@ -13,7 +13,6 @@ import io.reactivex.Observable
 import io.reactivex.Single
 import org.junit.Before
 import org.junit.Test
-import java.util.concurrent.TimeUnit
 
 class RecentlyAddedRepositoryTest {
 

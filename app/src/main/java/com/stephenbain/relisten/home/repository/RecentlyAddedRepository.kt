@@ -4,7 +4,6 @@ import com.stephenbain.relisten.common.Show
 import com.stephenbain.relisten.common.api.RelistenApi
 import com.stephenbain.relisten.common.db.RecentlyAddedDao
 import io.reactivex.Completable
-import io.reactivex.Maybe
 import io.reactivex.Observable
 import io.reactivex.Single
 import javax.inject.Inject
@@ -39,7 +38,7 @@ class RecentlyAddedRepository @Inject constructor(
     private fun saveAndClearShows(newShows: List<Show>, savedShows: List<Show>): Completable {
         return if (savedShows.isEmpty() && newShows.isNotEmpty()) {
             dao.putRecentlyAddedShows(newShows)
-        } else if (newShows.isNotEmpty() && newShows != savedShows ) {
+        } else if (newShows.isNotEmpty() && newShows != savedShows) {
             dao.clearRecentlyAddedShows().andThen(dao.putRecentlyAddedShows(newShows))
         } else Completable.complete()
     }
