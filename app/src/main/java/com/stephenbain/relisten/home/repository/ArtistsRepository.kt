@@ -3,8 +3,8 @@ package com.stephenbain.relisten.home.repository
 import com.stephenbain.relisten.common.Artist
 import com.stephenbain.relisten.common.api.RelistenApi
 import io.reactivex.Observable
-import timber.log.Timber
 import javax.inject.Inject
+import timber.log.Timber
 
 class ArtistsRepository @Inject constructor(private val relistenApi: RelistenApi) {
 
