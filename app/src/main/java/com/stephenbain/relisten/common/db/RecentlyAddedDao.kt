@@ -16,4 +16,7 @@ interface RecentlyAddedDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun putRecentlyAddedShows(shows: List<Show>): Completable
+
+    @Query("DELETE FROM shows")
+    fun clearRecentlyAddedShows(): Completable
 }
