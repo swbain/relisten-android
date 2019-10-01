@@ -21,11 +21,7 @@ class HomeViewModel @Inject constructor(
     val state: LiveData<HomeState>
         get() = _state
 
-    init {
-        fetchData()
-    }
-
-    private fun fetchData() {
+    fun fetchData() {
         autoDispose {
             getHomeItems().doOnError { Timber.e(it) }
                 .map<HomeState> { HomeState.Success(it) }

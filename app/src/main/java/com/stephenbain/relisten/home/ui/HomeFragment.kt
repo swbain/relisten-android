@@ -16,9 +16,13 @@ class HomeFragment : BaseFragment() {
     override val layoutId: Int
         get() = R.layout.fragment_home
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        viewModel.fetchData()
+    }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
         viewModel.state.observe(this, ::handleState)
     }
 
