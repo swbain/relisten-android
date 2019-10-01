@@ -3,7 +3,6 @@ package com.stephenbain.relisten.home.ui
 import android.os.Bundle
 import android.view.View
 import androidx.core.view.isVisible
-import androidx.navigation.NavDirections
 import androidx.navigation.fragment.findNavController
 import com.stephenbain.relisten.R
 import com.stephenbain.relisten.common.observe
