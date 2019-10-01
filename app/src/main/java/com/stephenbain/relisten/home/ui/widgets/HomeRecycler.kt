@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.stephenbain.relisten.R
+import com.stephenbain.relisten.common.Artist
 import com.stephenbain.relisten.common.ui.widget.BaseListAdapter
 import com.stephenbain.relisten.common.ui.widget.BaseViewHolder
 import com.stephenbain.relisten.home.ui.HomeItem
@@ -26,9 +27,14 @@ class HomeRecycler(context: Context, attrs: AttributeSet) : RecyclerView(context
         layoutManager = LinearLayoutManager(context)
     }
 
-    fun setItems(items: List<HomeItem>) = homeAdapter.submitList(items)
+    fun setItems(items: List<HomeItem>, clickListener: (Artist) -> Unit) {
+        homeAdapter.clickListener = clickListener
+        homeAdapter.submitList(items)
+    }
 
     private class HomeAdapter : BaseListAdapter<HomeItem, HomeItemViewHolder>(::sameItems, ::sameContents) {
+
+        var clickListener: ((Artist) -> Unit)? = null
 
         override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): HomeItemViewHolder {
             val view = LayoutInflater.from(parent.context).inflate(
@@ -41,7 +47,7 @@ class HomeRecycler(context: Context, attrs: AttributeSet) : RecyclerView(context
                 parent,
                 false
             )
-            return HomeItemViewHolder(view)
+            return HomeItemViewHolder(view, clickListener!!)
         }
 
         override fun getItemViewType(position: Int): Int {
@@ -88,7 +94,10 @@ class HomeRecycler(context: Context, attrs: AttributeSet) : RecyclerView(context
         }
     }
 
-    private class HomeItemViewHolder(override val containerView: View) : BaseViewHolder<HomeItem>(containerView) {
+    private class HomeItemViewHolder(
+        override val containerView: View,
+        private val clickListener: (Artist) -> Unit
+    ) : BaseViewHolder<HomeItem>(containerView) {
 
         override fun bind(item: HomeItem) = when (item) {
             is HomeItem.Divider -> bind(item)
@@ -108,6 +117,9 @@ class HomeRecycler(context: Context, attrs: AttributeSet) : RecyclerView(context
 
         private fun bind(item: HomeItem.ArtistItem) {
             artistName.text = item.artist.name
+            artistFrame.setOnClickListener {
+                clickListener(item.artist)
+            }
         }
 
         private fun bind(item: HomeItem.ShowsItem) {

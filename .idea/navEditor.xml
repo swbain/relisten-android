@@ -8,14 +8,35 @@
             <LayoutPositions>
               <option name="myPositions">
                 <map>
+                  <entry key="artistDetailFragment">
+                    <value>
+                      <LayoutPositions>
+                        <option name="myPosition">
+                          <Point>
+                            <option name="x" value="-14" />
+                            <option name="y" value="29" />
+                          </Point>
+                        </option>
+                      </LayoutPositions>
+                    </value>
+                  </entry>
                   <entry key="homeFragment">
                     <value>
                       <LayoutPositions>
                         <option name="myPosition">
                           <Point>
-                            <option name="x" value="107" />
-                            <option name="y" value="70" />
+                            <option name="x" value="-345" />
+                            <option name="y" value="21" />
                           </Point>
+                        </option>
+                        <option name="myPositions">
+                          <map>
+                            <entry key="action_homeToArtist">
+                              <value>
+                                <LayoutPositions />
+                              </value>
+                            </entry>
+                          </map>
                         </option>
                       </LayoutPositions>
                     </value>

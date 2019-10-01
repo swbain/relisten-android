@@ -2,6 +2,7 @@ package com.stephenbain.relisten.common.ui
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
+import com.stephenbain.relisten.artist.ArtistModule
 import com.stephenbain.relisten.home.HomeModule
 import dagger.Module
 import dagger.Provides
@@ -9,7 +10,7 @@ import dagger.android.support.AndroidSupportInjectionModule
 import javax.inject.Provider
 import javax.inject.Singleton
 
-@Module(includes = [AndroidSupportInjectionModule::class, HomeModule::class])
+@Module(includes = [AndroidSupportInjectionModule::class, HomeModule::class, ArtistModule::class])
 object UiModule {
 
     @Provides

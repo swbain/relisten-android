@@ -1,10 +1,10 @@
 package com.stephenbain.relisten.home.ui
 
 import android.os.Bundle
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import androidx.core.view.isVisible
+import androidx.navigation.NavDirections
+import androidx.navigation.fragment.findNavController
 import com.stephenbain.relisten.R
 import com.stephenbain.relisten.common.observe
 import com.stephenbain.relisten.common.ui.BaseFragment
@@ -14,15 +14,13 @@ class HomeFragment : BaseFragment() {
 
     private val viewModel by lazy { getViewModel<HomeViewModel>() }
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        return inflater.inflate(R.layout.fragment_home, container, false)
-    }
+    override val layoutId: Int
+        get() = R.layout.fragment_home
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
         viewModel.state.observe(this, ::handleState)
-        viewModel.fetchData()
     }
 
     private fun handleState(state: HomeViewModel.HomeState) = when (state) {
@@ -48,6 +46,8 @@ class HomeFragment : BaseFragment() {
         errorText.isVisible = false
         loading.isVisible = false
 
-        homeRecycler.setItems(items)
+        homeRecycler.setItems(items) { artist ->
+            findNavController().navigate(HomeFragmentDirections.actionHomeToArtist(artist))
+        }
     }
 }

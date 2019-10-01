@@ -1,10 +1,26 @@
 <?xml version="1.0" encoding="utf-8"?>
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto" android:id="@+id/nav_graph"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
     app:startDestination="@id/homeFragment">
 
     <fragment
         android:id="@+id/homeFragment"
         android:name="com.stephenbain.relisten.home.ui.HomeFragment"
-        android:label="HomeFragment" />
+        android:label="HomeFragment"
+        tools:layout="@layout/fragment_home">
+        <action
+            android:id="@+id/action_homeToArtist"
+            app:destination="@id/artistDetailFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/artistDetailFragment"
+        android:name="com.stephenbain.relisten.artist.ui.ArtistDetailFragment"
+        android:label="ArtistDetailFragment"
+        tools:layout="@layout/fragment_artist">
+        <argument
+            android:name="artist"
+            app:argType="com.stephenbain.relisten.common.Artist" />
+    </fragment>
 </navigation>
