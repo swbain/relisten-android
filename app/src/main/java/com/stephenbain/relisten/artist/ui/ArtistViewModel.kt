@@ -6,7 +6,6 @@ import com.stephenbain.relisten.common.Artist
 import com.stephenbain.relisten.common.ui.BaseViewModel
 import javax.inject.Inject
 
-
 class ArtistViewModel @Inject constructor() : BaseViewModel() {
 
     private val _state = MutableLiveData<ArtistState>()
@@ -21,5 +20,4 @@ class ArtistViewModel @Inject constructor() : BaseViewModel() {
     sealed class ArtistState {
         data class Success(val artist: Artist) : ArtistState()
     }
-
 }
