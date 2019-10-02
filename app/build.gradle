@@ -7,6 +7,7 @@ apply plugin: "org.jmailen.kotlinter"
 
 android {
     compileSdkVersion 28
+
     defaultConfig {
         applicationId "com.stephenbain.relisten"
         minSdkVersion 19
@@ -15,11 +16,21 @@ android {
         versionName "1.0"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
+
     buildTypes {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
+    }
+
+    compileOptions {
+        targetCompatibility = 1.8
+        sourceCompatibility = 1.8
+    }
+
+    kotlinOptions {
+        jvmTarget = "1.8"
     }
 
     androidExtensions {

@@ -24,8 +24,6 @@ object ApiModule {
             addConverterFactory(MoshiConverterFactory.create(moshi))
         }.build()
 
-        return retrofit.create()
+        return retrofit.create(RelistenApi::class.java)
     }
-
-    private inline fun <reified T> Retrofit.create() = create(T::class.java)
 }
