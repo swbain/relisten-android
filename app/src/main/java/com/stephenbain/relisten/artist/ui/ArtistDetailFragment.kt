@@ -13,7 +13,7 @@ class ArtistDetailFragment : BaseFragment() {
     override val layoutId: Int
         get() = R.layout.fragment_artist
 
-    private val viewModel by lazy { getViewModel<ArtistViewModel>() }
+    private val viewModel by getViewModel<ArtistViewModel>()
     private val args by navArgs<ArtistDetailFragmentArgs>()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

@@ -11,7 +11,7 @@ import kotlinx.android.synthetic.main.fragment_home.*
 
 class HomeFragment : BaseFragment() {
 
-    private val viewModel by lazy { getViewModel<HomeViewModel>() }
+    private val viewModel by getViewModel<HomeViewModel>()
 
     override val layoutId: Int
         get() = R.layout.fragment_home

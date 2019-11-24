@@ -25,7 +25,7 @@ abstract class BaseFragment : DaggerFragment() {
         return inflater.inflate(layoutId, container, false)
     }
 
-    protected inline fun <reified T : ViewModel> getViewModel(): T {
-        return ViewModelProviders.of(this, viewModelFactory).get(T::class.java)
+    protected inline fun <reified T : ViewModel> getViewModel(): Lazy<T> {
+        return lazy { ViewModelProviders.of(this, viewModelFactory).get(T::class.java) }
     }
 }
