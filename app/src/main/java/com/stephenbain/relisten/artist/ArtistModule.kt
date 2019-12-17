@@ -22,3 +22,6 @@ abstract class ArtistModule {
         abstract fun bindArtistViewModel(viewModel: ArtistViewModel): ViewModel
     }
 }
+
+
+
