@@ -1,6 +1,5 @@
 package com.stephenbain.relisten.ui.home
 
-import androidx.compose.runtime.Stable
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.stephenbain.relisten.domain.GetHomeItems
@@ -30,12 +29,8 @@ class HomeViewModel @Inject constructor(private val getHomeItems: GetHomeItems) 
     }
 }
 
-@Stable
 sealed class HomeState {
-    @Stable
     object Loading : HomeState()
-    @Stable
     data class Error(val message: String) : HomeState()
-    @Stable
     data class Success(val items: List<HomeItem>) : HomeState()
 }
