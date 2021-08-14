@@ -8,3 +8,4 @@ dependencyResolutionManagement {
 }
 rootProject.name = "Relisten"
 include ':app'
+include ':usecases'
