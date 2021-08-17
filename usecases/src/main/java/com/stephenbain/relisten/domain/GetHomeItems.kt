@@ -5,12 +5,21 @@ import kotlinx.coroutines.flow.flowOf
 import javax.inject.Inject
 
 class GetHomeItems @Inject constructor() {
+    @OptIn(ExperimentalStdlibApi::class)
     operator fun invoke(): Flow<List<HomeItem>> {
         return flowOf(
             listOf(
                 HomeItem.Separator.Featured,
                 HomeItem.ArtistItem("Grateful Dead"),
-                HomeItem.ArtistItem("Phish")
+                HomeItem.ArtistItem("Phish"),
+                HomeItem.Separator.LatestRecordings,
+                HomeItem.LatestRecordings(
+                    buildList {
+                        for (i in 1..7) {
+                            add(HomeRecordingItem("phish show $i"))
+                        }
+                    }
+                )
             )
         )
     }
