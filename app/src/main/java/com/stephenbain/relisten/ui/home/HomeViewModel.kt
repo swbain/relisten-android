@@ -14,6 +14,7 @@ import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
+@ExperimentalStdlibApi
 @HiltViewModel
 class HomeViewModel @Inject constructor(private val getHomeItems: GetHomeItems) : ViewModel() {
 

@@ -1,29 +1,27 @@
 package com.stephenbain.relisten.domain
 
+import com.stephenbain.relisten.api.ArtistJson
+import com.stephenbain.relisten.api.RelistenApi
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.flowOf
+import kotlinx.coroutines.flow.flow
 import javax.inject.Inject
 
-class GetHomeItems @Inject constructor() {
-    @OptIn(ExperimentalStdlibApi::class)
+@ExperimentalStdlibApi
+class GetHomeItems @Inject constructor(private val api: RelistenApi) {
     operator fun invoke(): Flow<List<HomeItem>> {
-        return flowOf(
-            listOf(
-                HomeItem.Separator.Featured,
-                HomeItem.ArtistItem("Grateful Dead"),
-                HomeItem.ArtistItem("Phish"),
-                HomeItem.Separator.LatestRecordings,
-                HomeItem.LatestRecordings(
-                    buildList {
-                        for (i in 1..7) {
-                            add(HomeRecordingItem("phish show $i"))
-                        }
-                    }
-                )
+        return flow {
+            val artists = api.getArtists()
+            emit(
+                buildList {
+                    add(HomeItem.Separator.AllArtists(artists.size))
+                    addAll(artists.map(ArtistJson::toArtistItem))
+                }
             )
-        )
+        }
     }
 }
+
+fun ArtistJson.toArtistItem(): HomeItem.ArtistItem = HomeItem.ArtistItem(name = name)
 
 sealed class HomeItem {
     sealed class Separator : HomeItem() {

@@ -9,3 +9,6 @@ dependencyResolutionManagement {
 rootProject.name = "Relisten"
 include ':app'
 include ':usecases'
+include ':api'
+include ':di'
+include ':api-retrofit'

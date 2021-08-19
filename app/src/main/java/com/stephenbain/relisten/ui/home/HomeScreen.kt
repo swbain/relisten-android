@@ -20,6 +20,7 @@ import com.stephenbain.relisten.com.stephenbain.relisten.ui.common.LoadingErrorL
 import com.stephenbain.relisten.domain.HomeItem
 import com.stephenbain.relisten.domain.HomeRecordingItem
 
+@ExperimentalStdlibApi
 @Composable
 fun HomeScreen(viewModel: HomeViewModel = viewModel()) {
     LoadingErrorList(
@@ -44,10 +45,8 @@ fun ArtistListEntry(item: HomeItem.ArtistItem) {
 
 @Composable
 fun LatestRecordingsListEntry(item: HomeItem.LatestRecordings) {
-    LazyRow(modifier = Modifier
-        .height(80.dp)
-        .fillMaxWidth()) {
-        items(item.recordings, key = HomeRecordingItem::name) {
+    LazyRow(modifier = Modifier.height(80.dp).fillMaxWidth()) {
+        items(items = item.recordings, key = HomeRecordingItem::name) {
             Box(
                 modifier = Modifier.fillMaxHeight().width(70.dp),
                 contentAlignment = Alignment.Center
@@ -74,7 +73,7 @@ fun HomeError(onRetryClick: () -> Unit) = Box(
     modifier = Modifier
         .fillMaxHeight()
         .fillMaxWidth(),
-    contentAlignment = Alignment.Center
+    contentAlignment = Alignment.Center,
 ) {
     Column(horizontalAlignment = Alignment.CenterHorizontally) {
         Text("Error")

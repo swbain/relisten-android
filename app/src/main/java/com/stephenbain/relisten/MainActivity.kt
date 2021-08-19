@@ -18,6 +18,7 @@ import com.stephenbain.relisten.ui.home.HomeScreen
 import com.stephenbain.relisten.ui.theme.RelistenTheme
 import dagger.hilt.android.AndroidEntryPoint
 
+@ExperimentalStdlibApi
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
