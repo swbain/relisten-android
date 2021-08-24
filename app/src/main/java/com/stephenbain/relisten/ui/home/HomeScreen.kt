@@ -85,7 +85,7 @@ fun HomeError(onRetryClick: () -> Unit) = Box(
 
 val HomeItem.key: String
     get() = when (this) {
-        is HomeItem.ArtistItem -> "artist_$name"
+        is HomeItem.ArtistItem -> "artist=$name featured=$featured"
         is HomeItem.LatestRecordings -> "latest_recordings_carousel"
         is HomeItem.Separator.AllArtists -> "all_artists_separator"
         HomeItem.Separator.Featured -> "featured_separator"
