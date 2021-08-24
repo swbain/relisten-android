@@ -7,7 +7,6 @@ import com.stephenbain.relisten.com.stephenbain.relisten.ui.common.toListState
 import com.stephenbain.relisten.domain.GetHomeItems
 import com.stephenbain.relisten.domain.HomeItem
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.collect
@@ -29,7 +28,6 @@ class HomeViewModel @Inject constructor(private val getHomeItems: GetHomeItems) 
 
     fun loadData() {
         viewModelScope.launch {
-            delay(3000)
             getHomeItems().toListState().collect(_state::value::set)
         }
     }
