@@ -2,10 +2,12 @@ package com.stephenbain.relisten.ui.home
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.stephenbain.relisten.com.stephenbain.relisten.ui.common.ListState
-import com.stephenbain.relisten.com.stephenbain.relisten.ui.common.toListState
+import com.stephenbain.relisten.com.stephenbain.relisten.ui.common.ContentState
+import com.stephenbain.relisten.com.stephenbain.relisten.ui.common.toContentState
 import com.stephenbain.relisten.domain.GetHomeItems
 import com.stephenbain.relisten.domain.HomeItem
+import com.stephenbain.relisten.domain.HomeSeparator
+import com.stephenbain.relisten.domain.HomeState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -19,9 +21,9 @@ import kotlin.time.ExperimentalTime
 @HiltViewModel
 class HomeViewModel @Inject constructor(private val getHomeItems: GetHomeItems) : ViewModel() {
 
-    private val _state = MutableStateFlow<ListState<HomeItem>>(ListState.Loading)
+    private val _state = MutableStateFlow<ContentState<HomeState>>(ContentState.Loading)
 
-    val state: StateFlow<ListState<HomeItem>>
+    val state: StateFlow<ContentState<HomeState>>
         get() = _state
 
     init {
@@ -30,7 +32,7 @@ class HomeViewModel @Inject constructor(private val getHomeItems: GetHomeItems) 
 
     fun loadData() {
         viewModelScope.launch {
-            getHomeItems().toListState().collect(_state::value::set)
+            getHomeItems().toContentState().collect(_state::value::set)
         }
     }
 }

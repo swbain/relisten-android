@@ -8,33 +8,41 @@ import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import javax.inject.Inject
-import kotlin.time.Duration
 import kotlin.time.ExperimentalTime
 
 @ExperimentalTime
 @ExperimentalStdlibApi
 class GetHomeItems @Inject constructor(private val api: RelistenApi) {
-    operator fun invoke(): Flow<List<HomeItem>> {
+    operator fun invoke(): Flow<HomeState> {
         return flow {
             val artistsAndShows = loadArtistsAndShows()
             val artists = artistsAndShows.first
             val shows = artistsAndShows.second
-            emit(
-                buildList {
-                    add(HomeItem.Separator.Featured)
-                    artists.filter { it.featured == 1 }
-                        .map { it.toArtistItem(featured = true) }
-                        .let(::addAll)
 
-                    if (shows.isNotEmpty()) {
-                        add(HomeItem.Separator.LatestRecordings)
-                        add(HomeItem.LatestRecordings(shows.map(ShowJson::toHomeRecordingItem)))
-                    }
+            val featuredArtists = artists.filter { it.featured == 1 }.map {
+                it.toArtistItem(featured = true)
+            }
 
-                    add(HomeItem.Separator.AllArtists(artists.size))
-                    addAll(artists.map(ArtistWithCountsJson::toArtistItem))
-                }
+            val latestRecordings = listOf(
+                HomeItem.LatestRecordings(shows.map(ShowJson::toHomeRecordingItem))
             )
+
+            val allArtists = artists.map(ArtistWithCountsJson::toArtistItem)
+
+            val map = buildMap<HomeSeparator, List<HomeItem>> {
+                if (featuredArtists.isNotEmpty()) {
+                    put(HomeSeparator.Featured, featuredArtists)
+                }
+
+                if (shows.isNotEmpty()) {
+                    put(HomeSeparator.LatestRecordings, latestRecordings)
+                }
+
+                if (allArtists.isNotEmpty()) {
+                    put(HomeSeparator.AllArtists(allArtists.size), allArtists)
+                }
+            }
+            emit(HomeState(map))
         }
     }
 
@@ -70,12 +78,6 @@ fun ShowJson.toHomeRecordingItem(): HomeRecordingItem = HomeRecordingItem(
 )
 
 sealed class HomeItem {
-    sealed class Separator : HomeItem() {
-        object Featured : Separator()
-        object LatestRecordings : Separator()
-        data class AllArtists(val count: Int) : Separator()
-    }
-
     data class ArtistItem(
         val name: String,
         val isFavorite: Boolean,
@@ -87,6 +89,12 @@ sealed class HomeItem {
     data class LatestRecordings(val recordings: List<HomeRecordingItem>) : HomeItem()
 }
 
+sealed class HomeSeparator {
+    object Featured : HomeSeparator()
+    object LatestRecordings : HomeSeparator()
+    data class AllArtists(val count: Int) : HomeSeparator()
+}
+
 data class HomeRecordingItem(
     val artistName: String,
     val date: String,
@@ -94,3 +102,5 @@ data class HomeRecordingItem(
     val durationSeconds: Long,
     val id: Int
 )
+
+data class HomeState(val items: Map<HomeSeparator, List<HomeItem>>)

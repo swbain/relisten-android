@@ -3,9 +3,6 @@ package com.stephenbain.relisten.com.stephenbain.relisten.ui.common
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.LazyItemScope
-import androidx.compose.foundation.lazy.items
 import androidx.compose.material.CircularProgressIndicator
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -19,24 +16,14 @@ import timber.log.Timber
 
 @Composable
 fun <T> LoadingErrorList(
-    state: ListState<T>,
-    key: ((item: T) -> Any)? = null,
+    state: ContentState<T>,
     loading: @Composable () -> Unit = { DefaultLoading() },
     error: @Composable () -> Unit,
-    itemContent: @Composable LazyItemScope.(item: T) -> Unit,
+    success: @Composable (T) -> Unit,
 ) = when (state) {
-    is ListState.Error -> error()
-    is ListState.Items<T> -> ListItems(state.items, key, itemContent)
-    ListState.Loading -> loading()
-}
-
-@Composable
-fun <T> ListItems(
-    items: List<T>,
-    key: ((item: T) -> Any)? = null,
-    itemContent: @Composable LazyItemScope.(item: T) -> Unit,
-) = LazyColumn {
-    items(items, key, itemContent)
+    is ContentState.Error -> error()
+    is ContentState.Success<T> -> success(state.successState)
+    ContentState.Loading -> loading()
 }
 
 @Composable
@@ -50,17 +37,17 @@ fun DefaultLoading() = Box(
     CircularProgressIndicator()
 }
 
-sealed class ListState<out T> {
-    object Loading : ListState<Nothing>()
-    data class Error(val t: Throwable) : ListState<Nothing>()
-    data class Items<out T>(val items: List<T>) : ListState<T>()
+sealed class ContentState<out T> {
+    object Loading : ContentState<Nothing>()
+    data class Error(val t: Throwable) : ContentState<Nothing>()
+    data class Success<out T>(val successState: T) : ContentState<T>()
 }
 
-fun <T> Flow<List<T>>.toListState(errorLogMessage: String? = null): Flow<ListState<T>> {
-    return map<List<T>, ListState<T>> { ListState.Items(it) }
-        .onStart { emit(ListState.Loading) }
+fun <T> Flow<T>.toContentState(errorLogMessage: String? = null): Flow<ContentState<T>> {
+    return map<T, ContentState<T>> { ContentState.Success(it) }
+        .onStart { emit(ContentState.Loading) }
         .catch {
             Timber.e(it, errorLogMessage)
-            emit(ListState.Error(it))
+            emit(ContentState.Error(it))
         }
 }

@@ -1,6 +1,7 @@
 package com.stephenbain.relisten.com.stephenbain.relisten.ui.home
 
 import android.text.format.DateUtils
+import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -17,6 +18,7 @@ import androidx.compose.material.Card
 import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material.Icon
 import androidx.compose.material.ListItem
+import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Favorite
@@ -31,6 +33,8 @@ import androidx.compose.ui.unit.dp
 import com.stephenbain.relisten.R
 import com.stephenbain.relisten.domain.HomeItem
 import com.stephenbain.relisten.domain.HomeRecordingItem
+import com.stephenbain.relisten.domain.HomeSeparator
+import com.stephenbain.relisten.ui.theme.LighterGray
 import com.stephenbain.relisten.ui.theme.Typography
 
 @ExperimentalMaterialApi
@@ -86,7 +90,9 @@ fun LatestRecordingsListEntry(item: HomeItem.LatestRecordings) {
 @Composable
 fun LatestRecordingItem(item: HomeRecordingItem) {
     Card(
-        modifier = Modifier.fillMaxHeight().padding(16.dp),
+        modifier = Modifier
+            .fillMaxHeight()
+            .padding(16.dp),
         elevation = 0.dp
     ) {
         Column {
@@ -102,12 +108,17 @@ val HomeRecordingItem.formattedDuration: String
     get() = DateUtils.formatElapsedTime(durationSeconds)
 
 @Composable
-fun SeparatorListEntry(item: HomeItem.Separator) {
-    Text(
-        text = when (item) {
-            is HomeItem.Separator.AllArtists -> stringResource(R.string.all_artists, item.count)
-            HomeItem.Separator.Featured -> stringResource(id = R.string.featured)
-            HomeItem.Separator.LatestRecordings -> stringResource(id = R.string.latest_recordings)
-        }
-    )
+fun SeparatorListEntry(item: HomeSeparator) {
+    Box(
+        modifier = Modifier.fillMaxWidth().background(MaterialTheme.colors.surface),
+    ) {
+        Text(
+            modifier = Modifier.padding(horizontal = 16.dp),
+            text = when (item) {
+                is HomeSeparator.AllArtists -> stringResource(R.string.all_artists, item.count)
+                HomeSeparator.Featured -> stringResource(id = R.string.featured)
+                HomeSeparator.LatestRecordings -> stringResource(id = R.string.latest_recordings)
+            }
+        )
+    }
 }
