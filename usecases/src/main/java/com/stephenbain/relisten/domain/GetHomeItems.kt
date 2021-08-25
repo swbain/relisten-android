@@ -67,6 +67,7 @@ sealed class HomeItem {
         object LatestRecordings : Separator()
         data class AllArtists(val count: Int) : Separator()
     }
+
     data class ArtistItem(
         val name: String,
         val isFavorite: Boolean,
@@ -74,6 +75,7 @@ sealed class HomeItem {
         val recordingCount: Int,
         val featured: Boolean = false,
     ) : HomeItem()
+    
     data class LatestRecordings(val recordings: List<HomeRecordingItem>) : HomeItem()
 }
 
