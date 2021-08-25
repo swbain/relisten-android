@@ -31,6 +31,7 @@ import androidx.compose.ui.unit.dp
 import com.stephenbain.relisten.R
 import com.stephenbain.relisten.domain.HomeItem
 import com.stephenbain.relisten.domain.HomeRecordingItem
+import com.stephenbain.relisten.ui.theme.Typography
 
 @ExperimentalMaterialApi
 @Composable
@@ -89,10 +90,10 @@ fun LatestRecordingItem(item: HomeRecordingItem) {
         elevation = 0.dp
     ) {
         Column {
-            Text(text = item.artistName)
-            Text(text = item.date)
-            Text(text = item.city)
-            Text(text = item.formattedDuration)
+            Text(text = item.artistName, style = Typography.overline)
+            Text(text = item.date, style = Typography.h6)
+            Text(text = item.city, style = Typography.caption)
+            Text(text = item.formattedDuration, style = Typography.caption)
         }
     }
 }
