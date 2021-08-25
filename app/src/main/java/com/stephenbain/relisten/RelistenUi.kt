@@ -1,6 +1,7 @@
 package com.stephenbain.relisten.com.stephenbain.relisten
 
 import androidx.compose.foundation.layout.Column
+import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
 import androidx.compose.material.Text
@@ -12,6 +13,7 @@ import com.stephenbain.relisten.R
 import com.stephenbain.relisten.ui.home.HomeScreen
 import com.stephenbain.relisten.ui.theme.RelistenTheme
 
+@ExperimentalMaterialApi
 @Composable
 @ExperimentalStdlibApi
 fun RelistenUi() {

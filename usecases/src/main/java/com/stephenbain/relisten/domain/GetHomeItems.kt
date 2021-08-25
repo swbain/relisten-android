@@ -1,6 +1,6 @@
 package com.stephenbain.relisten.domain
 
-import com.stephenbain.relisten.api.ArtistJson
+import com.stephenbain.relisten.api.ArtistWithCountsJson
 import com.stephenbain.relisten.api.RelistenApi
 import com.stephenbain.relisten.api.ShowJson
 import kotlinx.coroutines.async
@@ -19,19 +19,22 @@ class GetHomeItems @Inject constructor(private val api: RelistenApi) {
             emit(
                 buildList {
                     add(HomeItem.Separator.Featured)
-                    addAll(artists.map { it.toArtistItem(true) }.take(2))
+                    artists.filter { it.featured == 1 }
+                        .distinct()
+                        .map { it.toArtistItem(featured = true) }
+                        .let(::addAll)
                     if (shows.isNotEmpty()) {
                         add(HomeItem.Separator.LatestRecordings)
                         add(HomeItem.LatestRecordings(shows.map(ShowJson::toHomeRecordingItem)))
                     }
                     add(HomeItem.Separator.AllArtists(artists.size))
-                    addAll(artists.map(ArtistJson::toArtistItem))
+                    addAll(artists.map(ArtistWithCountsJson::toArtistItem))
                 }
             )
         }
     }
 
-    private suspend fun loadArtistsAndShows(): Pair<List<ArtistJson>, List<ShowJson>> {
+    private suspend fun loadArtistsAndShows(): Pair<List<ArtistWithCountsJson>, List<ShowJson>> {
         return coroutineScope {
             val artists = async { api.getArtists() }
             val shows = async { api.getRecentShows() }
@@ -40,8 +43,14 @@ class GetHomeItems @Inject constructor(private val api: RelistenApi) {
     }
 }
 
-fun ArtistJson.toArtistItem(featured: Boolean = false): HomeItem.ArtistItem {
-    return HomeItem.ArtistItem(name = name, featured = featured)
+fun ArtistWithCountsJson.toArtistItem(isFavorite: Boolean = false, featured: Boolean = false): HomeItem.ArtistItem {
+    return HomeItem.ArtistItem(
+        name = name,
+        isFavorite = isFavorite,
+        featured = featured,
+        showCount = showCount,
+        recordingCount = recordingCount
+    )
 }
 
 fun ShowJson.toHomeRecordingItem(): HomeRecordingItem = HomeRecordingItem(
@@ -54,7 +63,13 @@ sealed class HomeItem {
         object LatestRecordings : Separator()
         data class AllArtists(val count: Int) : Separator()
     }
-    data class ArtistItem(val name: String, val featured: Boolean = false) : HomeItem()
+    data class ArtistItem(
+        val name: String,
+        val isFavorite: Boolean,
+        val showCount: Int,
+        val recordingCount: Int,
+        val featured: Boolean = false,
+    ) : HomeItem()
     data class LatestRecordings(val recordings: List<HomeRecordingItem>) : HomeItem()
 }
 
