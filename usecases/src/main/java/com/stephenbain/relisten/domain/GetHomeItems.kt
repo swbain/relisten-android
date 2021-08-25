@@ -20,13 +20,14 @@ class GetHomeItems @Inject constructor(private val api: RelistenApi) {
                 buildList {
                     add(HomeItem.Separator.Featured)
                     artists.filter { it.featured == 1 }
-                        .distinct()
                         .map { it.toArtistItem(featured = true) }
                         .let(::addAll)
+
                     if (shows.isNotEmpty()) {
                         add(HomeItem.Separator.LatestRecordings)
                         add(HomeItem.LatestRecordings(shows.map(ShowJson::toHomeRecordingItem)))
                     }
+
                     add(HomeItem.Separator.AllArtists(artists.size))
                     addAll(artists.map(ArtistWithCountsJson::toArtistItem))
                 }
