@@ -12,7 +12,9 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import javax.inject.Inject
+import kotlin.time.ExperimentalTime
 
+@ExperimentalTime
 @ExperimentalStdlibApi
 @HiltViewModel
 class HomeViewModel @Inject constructor(private val getHomeItems: GetHomeItems) : ViewModel() {

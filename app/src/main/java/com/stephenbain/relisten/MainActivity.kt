@@ -6,7 +6,9 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.compose.material.ExperimentalMaterialApi
 import com.stephenbain.relisten.com.stephenbain.relisten.RelistenUi
 import dagger.hilt.android.AndroidEntryPoint
+import kotlin.time.ExperimentalTime
 
+@ExperimentalTime
 @ExperimentalMaterialApi
 @ExperimentalStdlibApi
 @AndroidEntryPoint

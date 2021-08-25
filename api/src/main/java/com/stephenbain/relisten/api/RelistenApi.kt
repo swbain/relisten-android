@@ -20,5 +20,10 @@ interface ShowJson {
     val artist: ArtistJson
     val id: Int
     val displayDate: String
-    val duration: Int
+    val duration: Long
+    val venue: VenueJson
+}
+
+interface VenueJson {
+    val location: String
 }

@@ -25,7 +25,9 @@ import com.stephenbain.relisten.com.stephenbain.relisten.ui.home.LatestRecording
 import com.stephenbain.relisten.com.stephenbain.relisten.ui.home.SeparatorListEntry
 import com.stephenbain.relisten.domain.HomeItem
 import com.stephenbain.relisten.domain.HomeRecordingItem
+import kotlin.time.ExperimentalTime
 
+@ExperimentalTime
 @ExperimentalMaterialApi
 @ExperimentalStdlibApi
 @Composable

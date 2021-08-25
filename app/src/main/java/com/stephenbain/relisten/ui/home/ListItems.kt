@@ -1,15 +1,19 @@
 package com.stephenbain.relisten.com.stephenbain.relisten.ui.home
 
+import android.text.format.DateUtils
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
+import androidx.compose.material.Card
 import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material.Icon
 import androidx.compose.material.ListItem
@@ -71,21 +75,34 @@ fun ArtistListEntry() {
 
 @Composable
 fun LatestRecordingsListEntry(item: HomeItem.LatestRecordings) {
-    LazyRow(modifier = Modifier
-        .height(80.dp)
-        .fillMaxWidth()) {
-        items(items = item.recordings, key = HomeRecordingItem::name) {
-            Box(
-                modifier = Modifier
-                    .fillMaxHeight()
-                    .width(70.dp),
-                contentAlignment = Alignment.Center
-            ) {
-                Text(it.name)
-            }
+    LazyRow(modifier = Modifier.fillMaxWidth()) {
+        items(items = item.recordings, key = HomeRecordingItem::id) {
+            LatestRecordingItem(it)
         }
     }
 }
+
+@Composable
+fun LatestRecordingItem(item: HomeRecordingItem) {
+    Card(
+        modifier = Modifier.fillMaxHeight().padding(16.dp),
+        elevation = 0.dp
+    ) {
+        Column {
+            Text(text = item.artistName)
+            Text(text = item.date)
+            Text(text = item.city)
+            Text(text = item.formattedDuration)
+        }
+    }
+}
+
+val HomeRecordingItem.formattedDuration: String
+    get() = if (durationSeconds < 60) {
+        durationSeconds.toString()
+    } else {
+        DateUtils.formatElapsedTime(durationSeconds)
+    }
 
 @Composable
 fun SeparatorListEntry(item: HomeItem.Separator) {

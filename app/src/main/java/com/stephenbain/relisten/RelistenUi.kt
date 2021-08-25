@@ -12,7 +12,9 @@ import androidx.compose.ui.tooling.preview.Preview
 import com.stephenbain.relisten.R
 import com.stephenbain.relisten.ui.home.HomeScreen
 import com.stephenbain.relisten.ui.theme.RelistenTheme
+import kotlin.time.ExperimentalTime
 
+@ExperimentalTime
 @ExperimentalMaterialApi
 @Composable
 @ExperimentalStdlibApi

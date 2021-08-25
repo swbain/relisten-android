@@ -8,7 +8,10 @@ import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import javax.inject.Inject
+import kotlin.time.Duration
+import kotlin.time.ExperimentalTime
 
+@ExperimentalTime
 @ExperimentalStdlibApi
 class GetHomeItems @Inject constructor(private val api: RelistenApi) {
     operator fun invoke(): Flow<List<HomeItem>> {
@@ -57,8 +60,13 @@ fun ArtistWithCountsJson.toArtistItem(
     )
 }
 
+@ExperimentalTime
 fun ShowJson.toHomeRecordingItem(): HomeRecordingItem = HomeRecordingItem(
-    name = displayDate + " ${artist.name}"
+    date = displayDate,
+    artistName = artist.name,
+    city = venue.location,
+    durationSeconds = duration,
+    id = id,
 )
 
 sealed class HomeItem {
@@ -75,8 +83,14 @@ sealed class HomeItem {
         val recordingCount: Int,
         val featured: Boolean = false,
     ) : HomeItem()
-    
+
     data class LatestRecordings(val recordings: List<HomeRecordingItem>) : HomeItem()
 }
 
-data class HomeRecordingItem(val name: String)
+data class HomeRecordingItem(
+    val artistName: String,
+    val date: String,
+    val city: String,
+    val durationSeconds: Long,
+    val id: Int
+)

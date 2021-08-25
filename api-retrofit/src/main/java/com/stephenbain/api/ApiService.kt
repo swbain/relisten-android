@@ -5,6 +5,7 @@ import com.squareup.moshi.JsonClass
 import com.stephenbain.relisten.api.ArtistJson
 import com.stephenbain.relisten.api.ArtistWithCountsJson
 import com.stephenbain.relisten.api.ShowJson
+import com.stephenbain.relisten.api.VenueJson
 import retrofit2.http.GET
 
 internal interface ApiService {
@@ -40,5 +41,9 @@ internal data class ShowJsonImpl(
     @Json(name = "display_date")
     override val displayDate: String,
     @Json(name = "avg_duration")
-    override val duration: Int,
+    override val duration: Long,
+    override val venue: VenueJsonImpl,
 ) : ShowJson
+
+@JsonClass(generateAdapter = true)
+internal data class VenueJsonImpl(override val location: String) : VenueJson
