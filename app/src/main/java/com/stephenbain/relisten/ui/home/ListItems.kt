@@ -99,11 +99,7 @@ fun LatestRecordingItem(item: HomeRecordingItem) {
 }
 
 val HomeRecordingItem.formattedDuration: String
-    get() = if (durationSeconds < 60) {
-        durationSeconds.toString()
-    } else {
-        DateUtils.formatElapsedTime(durationSeconds)
-    }
+    get() = DateUtils.formatElapsedTime(durationSeconds)
 
 @Composable
 fun SeparatorListEntry(item: HomeItem.Separator) {
