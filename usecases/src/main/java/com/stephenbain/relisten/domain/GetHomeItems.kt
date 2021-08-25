@@ -44,7 +44,10 @@ class GetHomeItems @Inject constructor(private val api: RelistenApi) {
     }
 }
 
-fun ArtistWithCountsJson.toArtistItem(isFavorite: Boolean = false, featured: Boolean = false): HomeItem.ArtistItem {
+fun ArtistWithCountsJson.toArtistItem(
+    isFavorite: Boolean = false,
+    featured: Boolean = false
+): HomeItem.ArtistItem {
     return HomeItem.ArtistItem(
         name = name,
         isFavorite = isFavorite,
