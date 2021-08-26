@@ -103,7 +103,7 @@ val HomeRecordingItem.formattedDuration: String
     get() = DateUtils.formatElapsedTime(durationSeconds)
 
 @Composable
-fun SeparatorListEntry(item: HomeSeparator) {
+fun HomeHeader(item: HomeSeparator) {
     Box(
         modifier = Modifier.fillMaxWidth().background(MaterialTheme.colors.surface),
     ) {

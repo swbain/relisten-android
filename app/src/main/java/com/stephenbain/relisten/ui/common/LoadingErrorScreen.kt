@@ -15,7 +15,7 @@ import kotlinx.coroutines.flow.onStart
 import timber.log.Timber
 
 @Composable
-fun <T> LoadingErrorList(
+fun <T> LoadingErrorScreen(
     state: ContentState<T>,
     loading: @Composable () -> Unit = { DefaultLoading() },
     error: @Composable () -> Unit,

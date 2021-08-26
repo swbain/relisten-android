@@ -15,11 +15,12 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.stephenbain.relisten.R
-import com.stephenbain.relisten.com.stephenbain.relisten.ui.common.LoadingErrorList
+import com.stephenbain.relisten.com.stephenbain.relisten.ui.common.LoadingErrorListWithSeparators
 import com.stephenbain.relisten.com.stephenbain.relisten.ui.common.StickyHeaderList
+import com.stephenbain.relisten.com.stephenbain.relisten.ui.common.map
 import com.stephenbain.relisten.com.stephenbain.relisten.ui.home.ArtistListEntry
 import com.stephenbain.relisten.com.stephenbain.relisten.ui.home.LatestRecordingsListEntry
-import com.stephenbain.relisten.com.stephenbain.relisten.ui.home.SeparatorListEntry
+import com.stephenbain.relisten.com.stephenbain.relisten.ui.home.HomeHeader
 import com.stephenbain.relisten.domain.HomeItem
 import kotlin.time.ExperimentalTime
 
@@ -29,10 +30,11 @@ import kotlin.time.ExperimentalTime
 @ExperimentalStdlibApi
 @Composable
 fun HomeScreen(viewModel: HomeViewModel = viewModel()) {
-    LoadingErrorList(
-        state = viewModel.state.collectAsState().value,
+    LoadingErrorListWithSeparators(
+        state = viewModel.state.collectAsState().value.map { it.items },
         error = { HomeError(viewModel::loadData) },
-        success = { HomeListItems(it.items) }
+        headerContent = { HomeHeader(it) },
+        itemContent = { HomeItem(it) },
     )
 }
 
@@ -65,7 +67,7 @@ fun HomeListItems(
     items: Map<HomeSeparator, List<HomeItem>>,
 ) = StickyHeaderList(
     map = items ,
-    headerContent = { SeparatorListEntry(item = it) },
+    headerContent = { HomeHeader(item = it) },
     itemContent = { HomeItem(it) },
     key = HomeItem::key
 )
