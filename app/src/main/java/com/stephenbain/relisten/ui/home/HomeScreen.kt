@@ -31,7 +31,7 @@ import kotlin.time.ExperimentalTime
 @Composable
 fun HomeScreen(viewModel: HomeViewModel = viewModel()) {
     LoadingErrorListWithSeparators(
-        state = viewModel.state.collectAsState().value.map { it.items },
+        state = viewModel.state.collectAsState().value.listState,
         error = { HomeError(viewModel::loadData) },
         headerContent = { HomeHeader(it) },
         itemContent = { HomeItem(it) },

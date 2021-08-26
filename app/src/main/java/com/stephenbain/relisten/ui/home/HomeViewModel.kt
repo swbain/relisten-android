@@ -21,9 +21,9 @@ import kotlin.time.ExperimentalTime
 @HiltViewModel
 class HomeViewModel @Inject constructor(private val getHomeItems: GetHomeItems) : ViewModel() {
 
-    private val _state = MutableStateFlow<ContentState<HomeState>>(ContentState.Loading)
+    private val _state = MutableStateFlow(HomeState(ContentState.Loading))
 
-    val state: StateFlow<ContentState<HomeState>>
+    val state: StateFlow<HomeState>
         get() = _state
 
     init {
@@ -32,8 +32,9 @@ class HomeViewModel @Inject constructor(private val getHomeItems: GetHomeItems) 
 
     fun loadData() {
         viewModelScope.launch {
-            getHomeItems().map { HomeState(it.toItemsMap()) }
+            getHomeItems().map { it.toItemsMap() }
                 .toContentState()
+                .map { HomeState(it) }
                 .collect(_state::value::set)
         }
     }
@@ -53,7 +54,7 @@ class HomeViewModel @Inject constructor(private val getHomeItems: GetHomeItems) 
     }
 }
 
-data class HomeState(val items: Map<HomeSeparator, List<HomeItem>>)
+data class HomeState(val listState: ContentState<Map<HomeSeparator, List<HomeItem>>>)
 
 sealed class HomeSeparator {
     object Featured : HomeSeparator()
