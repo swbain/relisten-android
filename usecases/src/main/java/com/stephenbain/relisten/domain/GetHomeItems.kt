@@ -13,7 +13,7 @@ import kotlin.time.ExperimentalTime
 @ExperimentalTime
 @ExperimentalStdlibApi
 class GetHomeItems @Inject constructor(private val api: RelistenApi) {
-    operator fun invoke(): Flow<HomeState> {
+    operator fun invoke(): Flow<HomeData> {
         return flow {
             val artistsAndShows = loadArtistsAndShows()
             val artists = artistsAndShows.first
@@ -23,26 +23,12 @@ class GetHomeItems @Inject constructor(private val api: RelistenApi) {
                 it.toArtistItem(featured = true)
             }
 
-            val latestRecordings = listOf(
-                HomeItem.LatestRecordings(shows.map(ShowJson::toHomeRecordingItem))
+            val latestRecordings = HomeItem.LatestRecordings(
+                shows.map(ShowJson::toHomeRecordingItem)
             )
 
             val allArtists = artists.map(ArtistWithCountsJson::toArtistItem)
-
-            val map = buildMap<HomeSeparator, List<HomeItem>> {
-                if (featuredArtists.isNotEmpty()) {
-                    put(HomeSeparator.Featured, featuredArtists)
-                }
-
-                if (shows.isNotEmpty()) {
-                    put(HomeSeparator.LatestRecordings, latestRecordings)
-                }
-
-                if (allArtists.isNotEmpty()) {
-                    put(HomeSeparator.AllArtists(allArtists.size), allArtists)
-                }
-            }
-            emit(HomeState(map))
+            emit(HomeData(featuredArtists, latestRecordings, allArtists))
         }
     }
 
@@ -89,12 +75,6 @@ sealed class HomeItem {
     data class LatestRecordings(val recordings: List<HomeRecordingItem>) : HomeItem()
 }
 
-sealed class HomeSeparator {
-    object Featured : HomeSeparator()
-    object LatestRecordings : HomeSeparator()
-    data class AllArtists(val count: Int) : HomeSeparator()
-}
-
 data class HomeRecordingItem(
     val artistName: String,
     val date: String,
@@ -103,4 +83,8 @@ data class HomeRecordingItem(
     val id: Int
 )
 
-data class HomeState(val items: Map<HomeSeparator, List<HomeItem>>)
+data class HomeData(
+    val featuredArtists: List<HomeItem.ArtistItem>,
+    val latestRecordings: HomeItem.LatestRecordings,
+    val allArtists: List<HomeItem.ArtistItem>
+)

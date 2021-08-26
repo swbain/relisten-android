@@ -51,3 +51,9 @@ fun <T> Flow<T>.toContentState(errorLogMessage: String? = null): Flow<ContentSta
             emit(ContentState.Error(it))
         }
 }
+
+fun <T, R> ContentState<T>.map(mapper: (T) -> R): ContentState<R> = when (this) {
+    is ContentState.Success -> ContentState.Success(mapper(successState))
+    is ContentState.Error -> ContentState.Error(t)
+    ContentState.Loading -> ContentState.Loading
+}
