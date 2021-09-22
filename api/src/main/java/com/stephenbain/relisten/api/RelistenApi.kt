@@ -21,7 +21,7 @@ interface ShowJson {
     val id: Int
     val displayDate: String
     val duration: Long
-    val venue: VenueJson
+    val venue: VenueJson?
 }
 
 interface VenueJson {

@@ -93,7 +93,7 @@ fun LatestRecordingItem(item: HomeRecordingItem) {
         Column {
             Text(text = item.artistName, style = Typography.overline)
             Text(text = item.date, style = Typography.h6)
-            Text(text = item.city, style = Typography.caption)
+            Text(text = item.city ?: "", style = Typography.caption)
             Text(text = item.formattedDuration, style = Typography.caption)
         }
     }

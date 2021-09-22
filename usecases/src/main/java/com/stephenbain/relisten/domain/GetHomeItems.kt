@@ -58,7 +58,7 @@ fun ArtistWithCountsJson.toArtistItem(
 fun ShowJson.toHomeRecordingItem(): HomeRecordingItem = HomeRecordingItem(
     date = displayDate,
     artistName = artist.name,
-    city = venue.location,
+    city = venue?.location,
     durationSeconds = duration,
     id = id,
 )
@@ -78,7 +78,7 @@ sealed class HomeItem {
 data class HomeRecordingItem(
     val artistName: String,
     val date: String,
-    val city: String,
+    val city: String?,
     val durationSeconds: Long,
     val id: Int
 )

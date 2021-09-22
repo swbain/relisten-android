@@ -42,7 +42,7 @@ internal data class ShowJsonImpl(
     override val displayDate: String,
     @Json(name = "avg_duration")
     override val duration: Long,
-    override val venue: VenueJsonImpl,
+    override val venue: VenueJsonImpl?,
 ) : ShowJson
 
 @JsonClass(generateAdapter = true)
